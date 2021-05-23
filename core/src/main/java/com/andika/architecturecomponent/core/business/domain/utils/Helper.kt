@@ -7,6 +7,7 @@ import com.andika.architecturecomponent.business.domain.utils.toLocalMovieList
 import com.andika.architecturecomponent.business.domain.utils.toLocalTVList
 import com.andika.architecturecomponent.core.business.data.remote.model.*
 import com.andika.architecturecomponent.core.business.data.local.model.*
+import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 import com.andika.architecturecomponent.core.business.domain.model.*
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.PAGE_SIZE
 import com.andika.architecturecomponent.core.business.network.pagingsource.MoviePagingSource
@@ -95,13 +96,13 @@ object Helper {
     }
 
 
-    fun getMoviePager(service: com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource, query: String) =
+    fun getMoviePager(service: RemoteDataSource, query: String) =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { MoviePagingSource(service = service, query = query) }
         ).flow
 
-    fun getTVPager(service: com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource, query: String) =
+    fun getTVPager(service: RemoteDataSource, query: String) =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { TVPagingSource(service = service, query = query) }

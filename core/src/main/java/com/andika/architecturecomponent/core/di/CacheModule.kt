@@ -2,11 +2,12 @@ package com.andika.architecturecomponent.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.andika.architecturecomponent.business.data.local.LocalDao
-import com.andika.architecturecomponent.business.data.local.LocalDataSource
-import com.andika.architecturecomponent.business.data.local.LocalDataSourceImpl
-import com.andika.architecturecomponent.business.data.local.LocalDatabase
+import com.andika.architecturecomponent.core.business.data.local.LocalDao
+import com.andika.architecturecomponent.core.business.data.local.LocalDataSource
+import com.andika.architecturecomponent.core.business.data.local.LocalDataSourceImpl
+import com.andika.architecturecomponent.core.business.data.local.LocalDatabase
 import dagger.Module
+
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext

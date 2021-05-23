@@ -1,12 +1,12 @@
 package com.andika.architecturecomponent.core.di
 
-import com.andika.architecturecomponent.BuildConfig
-import com.andika.architecturecomponent.business.data.remote.RemoteDataSource
-import com.andika.architecturecomponent.business.data.remote.RemoteDataSourceImpl
-import com.andika.architecturecomponent.business.domain.utils.AppConstant
-import com.andika.architecturecomponent.business.network.NetworkManager
-import com.andika.architecturecomponent.business.network.NetworkManagerService
-import com.andika.architecturecomponent.business.network.NetworkManagerServiceImpl
+
+import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
+import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSourceImpl
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
+import com.andika.architecturecomponent.core.business.network.NetworkManager
+import com.andika.architecturecomponent.core.business.network.NetworkManagerService
+import com.andika.architecturecomponent.core.business.network.NetworkManagerServiceImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

@@ -68,9 +68,7 @@ dependencies {
     implementation "com.elyeproj.libraries:loaderviewlibrary:$loaderView_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-    //livedata
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
 
     //ktx
     implementation "androidx.core:core-ktx:1.3.2"

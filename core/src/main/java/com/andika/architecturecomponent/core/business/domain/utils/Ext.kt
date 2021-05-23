@@ -1,16 +1,11 @@
 package com.andika.architecturecomponent.business.domain.utils
 
 import android.view.View
-
-import com.andika.architecturecomponent.core.business.data.local.model.LocalGenre
 import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
-import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
-import com.andika.architecturecomponent.business.data.remote.model.RemoteGenre
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
 
 
-fun com.andika.architecturecomponent.core.business.data.local.model.LocalMovie.toMovie(): RemoteMovie = RemoteMovie(
+fun toMovie(): RemoteMovie = RemoteMovie(
     id = id,
     adult = adult,
     backdrop_path = backdrop_path,
@@ -27,7 +22,7 @@ fun com.andika.architecturecomponent.core.business.data.local.model.LocalMovie.t
     vote_count = vote_count
 )
 
-fun List<com.andika.architecturecomponent.core.business.data.local.model.LocalMovie>.toMovieList(): List<RemoteMovie> {
+fun List<LocalMovie>.toMovieList(): List<RemoteMovie> {
     val localMovies = mutableListOf<RemoteMovie>()
     for (movie in this) {
         localMovies.add(
@@ -53,11 +48,11 @@ fun List<com.andika.architecturecomponent.core.business.data.local.model.LocalMo
 
 }
 
-fun List<RemoteMovie>.toLocalMovieList(): List<com.andika.architecturecomponent.core.business.data.local.model.LocalMovie> {
-    val localMovies = mutableListOf<com.andika.architecturecomponent.core.business.data.local.model.LocalMovie>()
+fun List<RemoteMovie>.toLocalMovieList(): List<.LocalMovie> {
+    val localMovies = mutableListOf<.LocalMovie>()
     for (movie in this) {
         localMovies.add(
-            com.andika.architecturecomponent.core.business.data.local.model.LocalMovie(
+            .LocalMovie(
                 id = movie.id,
                 adult = movie.adult,
                 backdrop_path = movie.backdrop_path,
@@ -78,11 +73,11 @@ fun List<RemoteMovie>.toLocalMovieList(): List<com.andika.architecturecomponent.
 
 }
 
-fun List<RemoteTV>.toLocalTVList(): List<com.andika.architecturecomponent.core.business.data.local.model.LocalTV> {
-    val tvList = mutableListOf<com.andika.architecturecomponent.core.business.data.local.model.LocalTV>()
+fun List<RemoteTV>.toLocalTVList(): List<.LocalTV> {
+    val tvList = mutableListOf<.LocalTV>()
     for (tv in this) {
         tvList.add(
-            com.andika.architecturecomponent.core.business.data.local.model.LocalTV(
+            .LocalTV(
                 id = tv.id,
                 backdrop_path = tv.backdrop_path,
                 original_language = tv.original_language,
@@ -101,7 +96,7 @@ fun List<RemoteTV>.toLocalTVList(): List<com.andika.architecturecomponent.core.b
     return tvList
 }
 
-fun List<com.andika.architecturecomponent.core.business.data.local.model.LocalTV>.toTVList(): List<RemoteTV> {
+fun List<.LocalTV>.toTVList(): List<RemoteTV> {
     val tvList = mutableListOf<RemoteTV>()
     for (tv in this) {
         tvList.add(
@@ -125,8 +120,8 @@ fun List<com.andika.architecturecomponent.core.business.data.local.model.LocalTV
     return tvList
 }
 
-fun RemoteMovie.toLocalMovie(): com.andika.architecturecomponent.core.business.data.local.model.LocalMovie =
-    com.andika.architecturecomponent.core.business.data.local.model.LocalMovie(
+fun RemoteMovie.toLocalMovie(): .LocalMovie =
+    .LocalMovie(
         id = id,
         adult = adult,
         backdrop_path = backdrop_path,
@@ -142,8 +137,8 @@ fun RemoteMovie.toLocalMovie(): com.andika.architecturecomponent.core.business.d
         vote_count = vote_count
     )
 
-fun RemoteTV.toLocalTV(): com.andika.architecturecomponent.core.business.data.local.model.LocalTV =
-    com.andika.architecturecomponent.core.business.data.local.model.LocalTV(
+fun RemoteTV.toLocalTV(): .LocalTV =
+    .LocalTV(
         id = id,
         backdrop_path = backdrop_path,
         original_language = original_language,
@@ -158,7 +153,7 @@ fun RemoteTV.toLocalTV(): com.andika.architecturecomponent.core.business.data.lo
         vote_count = vote_count
     )
 
-fun com.andika.architecturecomponent.core.business.data.local.model.LocalTV.toTV(): RemoteTV =
+fun .LocalTV.toTV(): RemoteTV =
     RemoteTV(
         id = id,
         backdrop_path = backdrop_path,
@@ -174,11 +169,11 @@ fun com.andika.architecturecomponent.core.business.data.local.model.LocalTV.toTV
         vote_count = vote_count, genre_ids = null, origin_country = null
     )
 
-fun List<RemoteGenre>.toLocalGenres(): List<com.andika.architecturecomponent.core.business.data.local.model.LocalGenre> {
-    val localGenre = mutableListOf<com.andika.architecturecomponent.core.business.data.local.model.LocalGenre>()
+fun List<RemoteGenre>.toLocalGenres(): List<.LocalGenre> {
+    val localGenre = mutableListOf<.LocalGenre>()
     for (genre in this) {
         localGenre.add(
-            com.andika.architecturecomponent.core.business.data.local.model.LocalGenre(
+            .LocalGenre(
                 id = genre.id,
                 name = genre.name
             )
@@ -187,7 +182,7 @@ fun List<RemoteGenre>.toLocalGenres(): List<com.andika.architecturecomponent.cor
     return localGenre
 }
 
-fun List<com.andika.architecturecomponent.core.business.data.local.model.LocalGenre>.toGenres(): List<RemoteGenre> {
+fun List<.LocalGenre>.toGenres(): List<RemoteGenre> {
     val localGenre = mutableListOf<RemoteGenre>()
     for (genre in this) {
         localGenre.add(RemoteGenre(id = genre.id, name = genre.name))
