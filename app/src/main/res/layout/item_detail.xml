@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:nestedScrollingEnabled="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mid_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/detail_title"
+            style="@style/TextView.DetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_series_title" />
+
+
+        <TextView
+            android:id="@+id/detail_release_date"
+            style="@style/TextView.DetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date" />
+
+        <TextView
+            android:id="@+id/detail_summary_title"
+            style="@style/TextView.DetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summary" />
+
+        <TextView
+            android:id="@+id/detail_summary_text"
+            style="@style/TextView.DetailDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summary"
+
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_share"
+            style="@style/Fab.Simple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="@string/share"
+            android:src="@drawable/ic_baseline_share" />
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/detailShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <include layout="@layout/similar_shimmer" />
+
+                <include layout="@layout/recomended_shimmer" />
+
+
+            </LinearLayout>
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        <LinearLayout
+            android:id="@+id/detailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <TextView
+                android:id="@+id/detail_similiar_title"
+                style="@style/TextView.DetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/similiar_text" />
+
+            <TextView
+                android:id="@+id/detail_similiar_text_commingSoon"
+                style="@style/TextView.DetailDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coming_soon"
+                android:visibility="gone"
+
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_similiar_rv"
+                style="@style/RecyclerView.Product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+
+            <TextView
+                android:id="@+id/detail_recomendation_title"
+                style="@style/TextView.DetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recomendation_movies" />
+
+            <TextView
+                android:id="@+id/detail_recomendation_text_commingSoon"
+                style="@style/TextView.DetailDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coming_soon"
+                android:visibility="gone"
+
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_recomendation_rv"
+                style="@style/RecyclerView.Product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

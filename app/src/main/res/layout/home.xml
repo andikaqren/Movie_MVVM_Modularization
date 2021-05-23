@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_home_now_playing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_now_playing"
+                style="@style/TextView.HomeTitleProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/now_playing" />
+
+            <include
+                android:id="@+id/layout_shimmer_home_now_playing"
+                layout="@layout/shimmer_home_movies"
+                android:visibility="visible" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_now_playing"
+                style="@style/RecyclerView.Product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/no_data_now_playing"
+                layout="@layout/product_not_found" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_home_popular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_popular"
+                style="@style/TextView.HomeTitleProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popular" />
+
+            <include
+                android:id="@+id/layout_shimmer_home_popular"
+                layout="@layout/shimmer_home_movies"
+                android:visibility="visible" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_popular"
+                style="@style/RecyclerView.Product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/no_data_popular"
+                layout="@layout/product_not_found" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_home_upcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_upcoming"
+                style="@style/TextView.HomeTitleProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upcoming" />
+
+            <include
+                android:id="@+id/layout_shimmer_home_upcoming"
+                layout="@layout/shimmer_home_movies"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_upcoming"
+                style="@style/RecyclerView.Product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/no_data_upcoming"
+                layout="@layout/product_not_found" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

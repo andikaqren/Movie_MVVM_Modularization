@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardView.HomeTopProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <io.supercharge.shimmerlayout.ShimmerLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/promo_height">
+
+        <ImageView
+            android:id="@+id/item_home_promo_iv"
+            style="@style/ImageView.HomeTopPoster"
+            android:contentDescription="@string/image_cover"
+            android:src="@drawable/logomovie" />
+
+        <TextView
+            style="@style/TextView.HomeDetailTopProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/TextView.HomeStarProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:drawableStartCompat="@drawable/ic_baseline_star_24" />
+
+        <TextView
+            style="@style/TextView.HomeTitleTopProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </io.supercharge.shimmerlayout.ShimmerLayout>
+</com.google.android.material.card.MaterialCardView>

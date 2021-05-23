@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="medium_margin">@dimen/_20sdp</dimen>
+    <dimen name="movies_size_bonus">@dimen/_190sdp</dimen>
+    <dimen name="mini_margin">@dimen/_5sdp</dimen>
+    <dimen name="mini_medium_margin">@dimen/_8sdp</dimen>
+    <dimen name="movies_size">@dimen/_150sdp</dimen>
+    <dimen name="movies_size_small">@dimen/_120sdp</dimen>
+    <dimen name="medium_font">20sp</dimen>
+    <dimen name="mid_margin">@dimen/_10sdp</dimen>
+    <dimen name="detail_frame_height">@dimen/_300sdp</dimen>
+    <dimen name="mini_poster">@dimen/_100sdp</dimen>
+    <dimen name="large_margin">@dimen/_50sdp</dimen>
+    <dimen name="promo_height">@dimen/_200sdp</dimen>
+</resources>

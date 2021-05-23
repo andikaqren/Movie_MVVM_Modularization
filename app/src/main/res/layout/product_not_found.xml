@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv_product"
+    style="@style/CardView.HomeProduct"
+    android:visibility="gone">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/ImageView.HomePoster"
+            android:contentDescription="@string/video_not_found"
+            android:src="@drawable/videonotfound" />
+
+        <TextView
+            style="@style/TextView.HomeDetailProduct"
+            android:text="@string/no_movies" />
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+

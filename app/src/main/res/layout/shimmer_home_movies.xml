@@ -1,0 +1,57 @@
+<io.supercharge.shimmerlayout.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shimmer_layout"
+    android:layout_width="@dimen/movies_size_bonus"
+    android:layout_height="@dimen/movies_size_bonus"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/mini_margin"
+    android:gravity="center"
+    android:padding="@dimen/mini_margin">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/CardView.HomeProduct"
+        android:layout_width="@dimen/movies_size"
+        android:layout_height="@dimen/movies_size">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/movies_size_small"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/video_not_found" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:background="@color/colorPrimary"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="center"
+                    android:maxLength="30"
+                    android:text="@string/loading"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</io.supercharge.shimmerlayout.ShimmerLayout>

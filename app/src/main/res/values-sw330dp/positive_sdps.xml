@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_5sdp">5.50dp</dimen>
+    <dimen name="_8sdp">8.80dp</dimen>
+    <dimen name="_10sdp">11.00dp</dimen>
+    <dimen name="_20sdp">22.00dp</dimen>
+    <dimen name="_50sdp">55.00dp</dimen>
+    <dimen name="_100sdp">110.00dp</dimen>
+    <dimen name="_120sdp">132.00dp</dimen>
+    <dimen name="_150sdp">165.00dp</dimen>
+    <dimen name="_190sdp">209.00dp</dimen>
+    <dimen name="_200sdp">220.00dp</dimen>
+    <dimen name="_300sdp">330.00dp</dimen>
+</resources>

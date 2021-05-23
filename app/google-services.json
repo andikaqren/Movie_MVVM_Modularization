@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "50363626116",
+    "project_id": "moviekatalog-5b1a1",
+    "storage_bucket": "moviekatalog-5b1a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50363626116:android:578582b5b0d600ea3e08d1",
+        "android_client_info": {
+          "package_name": "com.andika.architecturecomponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50363626116-f0pijp0ismdhocpdq9hcrrer4t37r8kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.andika.architecturecomponent",
+            "certificate_hash": "42b83e05ad8e2b2f207e11d0e67217f0506c2a12"
+          }
+        },
+        {
+          "client_id": "50363626116-2o7q9s1kdqjhp2t7sfsolkg5ftdm1k9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsnzcHYNrWc0ktUWSS8nuQFy--1unEkJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50363626116-2o7q9s1kdqjhp2t7sfsolkg5ftdm1k9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
