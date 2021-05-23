@@ -5,33 +5,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies
+import com.andika.architecturecomponent.core.business.domain.model.Movie
+import com.andika.architecturecomponent.core.business.domain.model.Movies
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel
 @Inject constructor(
-    private val interactors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
+    private val interactors: MovieInteractors
 ) : ViewModel() {
     private var nowPlayingJob: Job? = null
     private var popularJob: Job? = null
     private var upcomingJob: Job? = null
     private var topRatedJob: Job? = null
-    private var _topMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = MutableLiveData()
-    private var _nowPlayingMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = MutableLiveData()
-    private var _popularMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = MutableLiveData()
-    var _upcomingMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = MutableLiveData()
-    var topMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = _topMovies
-    var popularMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = _popularMovies
-    var nowPlayingMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = _nowPlayingMovies
-    var upcomingMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>> = _upcomingMovies
+    private var _topMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
+    private var _nowPlayingMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
+    private var _popularMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
+    var _upcomingMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
+    var topMovies: LiveData<DataState<Movies>> = _topMovies
+    var popularMovies: LiveData<DataState<PagingData<Movie>>> = _popularMovies
+    var nowPlayingMovies: LiveData<DataState<PagingData<Movie>>> = _nowPlayingMovies
+    var upcomingMovies: LiveData<DataState<PagingData<Movie>>> = _upcomingMovies
 
     fun reloadData() {
         nowPlayingJob?.cancel()

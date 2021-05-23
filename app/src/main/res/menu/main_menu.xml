@@ -10,8 +10,7 @@
         android:title="@string/tv_series" />
 
     <item
-        android:id="@+id/favoritFragment"
-
+        android:id="@+id/favouriteFragment"
         android:icon="@drawable/ic_baseline_favourite"
         android:title="@string/favourite" />
 </menu>

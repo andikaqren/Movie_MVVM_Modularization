@@ -5,17 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
-import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs
+import com.andika.architecturecomponent.core.business.domain.model.Movie
+import com.andika.architecturecomponent.core.business.domain.model.Movies
+import com.andika.architecturecomponent.core.business.domain.model.TV
+import com.andika.architecturecomponent.core.business.domain.model.TVs
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
-import com.andika.architecturecomponent.business.domain.utils.toLocalMovie
-import com.andika.architecturecomponent.business.domain.utils.toLocalTV
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
@@ -25,31 +21,33 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
+
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel
 @Inject constructor(
-    private val interactors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
+    private val interactors: MovieInteractors
 ) : ViewModel() {
-    private var _similarMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = MutableLiveData()
-    private var _recomendationMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = MutableLiveData()
-    private var _similarTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = MutableLiveData()
-    private var _recomendationTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = MutableLiveData()
-    private var _favMovie: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>> = MutableLiveData()
-    private var _favTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>> = MutableLiveData()
-    private var _tv: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>> = MutableLiveData()
-    private var _movie: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>> = MutableLiveData()
-    private var _dynamicLink = MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<String>>()
-    var similarMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = _similarMovies
-    var recomendationMovies: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>> = _recomendationMovies
-    var similarTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = _similarTV
-    var recomendationTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = _recomendationTV
-    var favMovie: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>> = _favMovie
-    var favTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>> = _favTV
-    var tv: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>> = _tv
-    var movie: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>> = _movie
-    var dynamicLink: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<String>> = _dynamicLink
+    private var _similarMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
+    private var _recomendationMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
+    private var _similarTV: MutableLiveData<DataState<TVs>> = MutableLiveData()
+    private var _recomendationTV: MutableLiveData<DataState<TVs>> = MutableLiveData()
+    private var _favMovie: MutableLiveData<DataState<Movie>> = MutableLiveData()
+    private var _favTV: MutableLiveData<DataState<TV>> = MutableLiveData()
+    private var _tv: MutableLiveData<DataState<TV>> = MutableLiveData()
+    private var _movie: MutableLiveData<DataState<Movie>> = MutableLiveData()
+    private var _dynamicLink = MutableLiveData<DataState<String>>()
+    var similarMovies: LiveData<DataState<Movies>> = _similarMovies
+    var recomendationMovies: LiveData<DataState<Movies>> = _recomendationMovies
+    var similarTV: LiveData<DataState<TVs>> = _similarTV
+    var recomendationTV: LiveData<DataState<TVs>> = _recomendationTV
+    var favMovie: LiveData<DataState<Movie>> = _favMovie
+    var favTV: LiveData<DataState<TV>> = _favTV
+    var tv: LiveData<DataState<TV>> = _tv
+    var movie: LiveData<DataState<Movie>> = _movie
+    var dynamicLink: LiveData<DataState<String>> = _dynamicLink
 
     private var similarJob: Job? = null
     private var recomendationJob: Job? = null
@@ -132,21 +130,27 @@ class DetailViewModel
         viewModelScope.launch(Dispatchers.IO) {
             when (type) {
                 MOVIE -> {
-                    selectFavMovie(isFavourite, (data as com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie).toLocalMovie())
+                    selectFavMovie(isFavourite, data as Movie)
                 }
                 TV -> {
-                    selectFavTV(isFavourite, (data as com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV).toLocalTV())
+                    selectFavTV(isFavourite, data as TV)
                 }
             }
         }
     }
 
-    suspend fun selectFavTV(isFavourite: Boolean, localTV: com.andika.architecturecomponent.core.business.data.local.model.LocalTV) {
+    suspend fun selectFavTV(
+        isFavourite: Boolean,
+        localTV: TV
+    ) {
         if (isFavourite) interactors.insertSelectedTV(localTV)
         else interactors.removeSelectedTV(localTV)
     }
 
-    suspend fun selectFavMovie(isFavourite: Boolean, localMovie: com.andika.architecturecomponent.core.business.data.local.model.LocalMovie) {
+    suspend fun selectFavMovie(
+        isFavourite: Boolean,
+        localMovie: Movie
+    ) {
         if (isFavourite) interactors.insertSelectedMovie(localMovie)
         else interactors.removeSelectedMovie(localMovie)
     }
@@ -164,7 +168,7 @@ class DetailViewModel
     }
 
     fun getDynamicLink(deepLink: String) {
-        _dynamicLink.postValue(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+        _dynamicLink.postValue(DataState.Loading)
         Firebase.dynamicLinks.shortLinkAsync {
             link = Uri.parse(deepLink)
             domainUriPrefix = deepLink
@@ -172,9 +176,9 @@ class DetailViewModel
 
             }
         }.addOnSuccessListener {
-            _dynamicLink.postValue(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(it.shortLink.toString()))
+            _dynamicLink.postValue(DataState.Success(it.shortLink.toString()))
         }.addOnFailureListener {
-            _dynamicLink.postValue(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(it))
+            _dynamicLink.postValue(DataState.Error(it))
         }
     }
 

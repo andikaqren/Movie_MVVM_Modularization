@@ -7,22 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.business.domain.utils.gone
 import com.andika.architecturecomponent.business.domain.utils.visible
+import com.andika.architecturecomponent.core.business.domain.model.Movie
+import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.databinding.FragmentMoviesBinding
-import com.andika.architecturecomponent.framework.adapter.ItemClickListener
-import com.andika.architecturecomponent.framework.adapter.MoviePagingAdapter
-import com.andika.architecturecomponent.framework.adapter.PagingBaseAdapter
+import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
+import com.andika.architecturecomponent.core.ui.adapter.PagingBaseAdapter
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie> {
+class MovieFragment : Fragment(), ItemClickListener<Movie> {
     private lateinit var binding: FragmentMoviesBinding
     private var nowPlayingAdapter = MoviePagingAdapter()
     private var popularAdapter = MoviePagingAdapter()
@@ -76,19 +76,19 @@ class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecompo
     fun initObserver() {
         viewModel.nowPlayingMovies.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.container.noDataNowPlaying.cvProduct.gone()
                     binding.container.rvNowPlaying.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.visible()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.startShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.container.noDataNowPlaying.cvProduct.visible()
                     binding.container.rvNowPlaying.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.stopShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     nowPlayingAdapter.submitData(lifecycle, it.data)
                     binding.container.noDataNowPlaying.cvProduct.gone()
                     binding.container.rvNowPlaying.visible()
@@ -99,19 +99,19 @@ class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecompo
         })
         viewModel.popularMovies.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.container.noDataPopular.cvProduct.gone()
                     binding.container.rvPopular.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.visible()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.startShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.container.noDataPopular.cvProduct.visible()
                     binding.container.rvPopular.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.stopShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     popularAdapter.submitData(lifecycle, it.data)
                     binding.container.noDataPopular.cvProduct.gone()
                     binding.container.rvPopular.visible()
@@ -123,19 +123,19 @@ class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecompo
 
         viewModel.upcomingMovies.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.container.noDataUpcoming.cvProduct.gone()
                     binding.container.rvUpcoming.gone()
                     binding.container.layoutShimmerHomeUpcoming.shimmerLayout.visible()
                     binding.container.layoutShimmerHomeUpcoming.shimmerLayout.startShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.container.noDataUpcoming.cvProduct.visible()
                     binding.container.rvUpcoming.gone()
                     binding.container.layoutShimmerHomeUpcoming.shimmerLayout.gone()
                     binding.container.layoutShimmerHomeUpcoming.shimmerLayout.stopShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     upcomingAdapter.submitData(lifecycle, it.data)
                     binding.container.noDataUpcoming.cvProduct.gone()
                     binding.container.rvUpcoming.visible()
@@ -146,17 +146,17 @@ class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecompo
         })
         viewModel.topMovies.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.layoutShimmerHomeVp.shimmerLayout.visible()
                     binding.layoutShimmerHomeVp.shimmerLayout.startShimmerAnimation()
                     binding.homeVp.gone()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.layoutShimmerHomeVp.shimmerLayout.visible()
                     binding.layoutShimmerHomeVp.shimmerLayout.stopShimmerAnimation()
                     binding.homeVp.gone()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     topRatedAdapter.setData(it.data.results)
                     binding.layoutShimmerHomeVp.shimmerLayout.gone()
                     binding.layoutShimmerHomeVp.shimmerLayout.stopShimmerAnimation()
@@ -166,7 +166,7 @@ class MovieFragment : Fragment(), ItemClickListener<com.andika.architecturecompo
         })
     }
 
-    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie?, view: Int) {
+    override fun itemClick(position: Int, item: Movie?, view: Int) {
         item?.let {
             DetailActivity.start(requireContext(), MOVIE, it)
         }

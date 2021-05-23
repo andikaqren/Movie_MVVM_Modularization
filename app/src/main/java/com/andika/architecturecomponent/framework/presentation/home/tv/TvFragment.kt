@@ -8,15 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.core.business.domain.state.DataState
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
 import com.andika.architecturecomponent.business.domain.utils.gone
 import com.andika.architecturecomponent.business.domain.utils.visible
+import com.andika.architecturecomponent.core.business.domain.model.TV
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
 import com.andika.architecturecomponent.databinding.FragmentTvBinding
-import com.andika.architecturecomponent.framework.adapter.ItemClickListener
-import com.andika.architecturecomponent.framework.adapter.TVPagingAdapter
-import com.andika.architecturecomponent.framework.adapter.TvPagerAdapter
+import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
+import com.andika.architecturecomponent.core.ui.adapter.TvPagerAdapter
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class TvFragment : Fragment(), ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV> {
+class TvFragment : Fragment(), ItemClickListener<TV> {
     private lateinit var binding: FragmentTvBinding
     private lateinit var latestJob: Job
     private lateinit var popularJob: Job
@@ -82,19 +82,19 @@ class TvFragment : Fragment(), ItemClickListener<com.andika.architecturecomponen
     private fun initObserver() {
         viewModel.latestTV.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.container.noDataNowPlaying.cvProduct.gone()
                     binding.container.rvNowPlaying.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.visible()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.startShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.container.noDataNowPlaying.cvProduct.visible()
                     binding.container.rvNowPlaying.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.gone()
                     binding.container.layoutShimmerHomeNowPlaying.shimmerLayout.stopShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     latestJob = lifecycleScope.launch {
                         latestAdapter.submitData(it.data)
                     }
@@ -107,19 +107,19 @@ class TvFragment : Fragment(), ItemClickListener<com.andika.architecturecomponen
         })
         viewModel.popularTV.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.container.noDataPopular.cvProduct.gone()
                     binding.container.rvPopular.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.visible()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.startShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.container.noDataPopular.cvProduct.visible()
                     binding.container.rvPopular.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.gone()
                     binding.container.layoutShimmerHomePopular.shimmerLayout.stopShimmerAnimation()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     popularJob = lifecycleScope.launch {
                         popularAdapter.submitData(it.data)
                     }
@@ -132,17 +132,17 @@ class TvFragment : Fragment(), ItemClickListener<com.andika.architecturecomponen
         })
         viewModel.topTV.observe(viewLifecycleOwner, {
             when (it) {
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
+                is DataState.Loading -> {
                     binding.layoutShimmerHomeVp.shimmerLayout.visible()
                     binding.layoutShimmerHomeVp.shimmerLayout.startShimmerAnimation()
                     binding.homeVp.gone()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
+                is DataState.Error -> {
                     binding.layoutShimmerHomeVp.shimmerLayout.visible()
                     binding.layoutShimmerHomeVp.shimmerLayout.stopShimmerAnimation()
                     binding.homeVp.gone()
                 }
-                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
+                is DataState.Success -> {
                     topJob = lifecycleScope.launch {
                         topRatedAdapter.setData(it.data.results)
                     }
@@ -156,9 +156,9 @@ class TvFragment : Fragment(), ItemClickListener<com.andika.architecturecomponen
     }
 
 
-    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV?, view: Int) {
+    override fun itemClick(position: Int, item: TV?, view: Int) {
         item?.let {
-            DetailActivity.start(requireContext(), com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV, it)
+            DetailActivity.start(requireContext(), AppConstant.TV, it)
         }
     }
 }

@@ -2,13 +2,7 @@ package com.andika.architecturecomponent.framework.presentation.home.favourite
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
-import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
-import com.andika.architecturecomponent.core.business.domain.state.DataState
-import com.andika.architecturecomponent.core.business.domain.utils.Helper
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.helper.TestCoroutineRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,7 +31,7 @@ class FavouriteViewModelTest {
         TestCoroutineRule()
 
     @Mock
-    private lateinit var favViewModel: FavouriteViewModel
+    private lateinit var favViewModel: com.andika.architecturecomponent.favourite.FavouriteViewModel
 
     @Mock
     private lateinit var movieInteractors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
@@ -56,7 +50,7 @@ class FavouriteViewModelTest {
         MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(coroutineRule.dispatcher)
         favViewModel =
-            FavouriteViewModel(
+            com.andika.architecturecomponent.favourite.FavouriteViewModel(
                 movieInteractors
             ).apply {
                 favouriteMovies.observeForever(favMovieObserver)

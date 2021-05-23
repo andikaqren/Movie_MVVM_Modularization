@@ -5,9 +5,10 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.andika.architecturecomponent.core.business.data.local.LocalDataSource
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
-import com.andika.architecturecomponent.core.business.domain.model.*
-import com.andika.architecturecomponent.core.business.data.local.model.*
-import com.andika.architecturecomponent.core.business.data.remote.model.*
+import com.andika.architecturecomponent.core.business.domain.model.Movie
+import com.andika.architecturecomponent.core.business.domain.model.Movies
+import com.andika.architecturecomponent.core.business.domain.model.TV
+import com.andika.architecturecomponent.core.business.domain.model.TVs
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.LATEST_TV
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.NOW_PLAYING_MOVIES
@@ -19,8 +20,8 @@ import com.andika.architecturecomponent.core.business.domain.utils.EspressoIdlin
 import com.andika.architecturecomponent.core.business.domain.utils.Helper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 class MovieInteractors
 constructor(

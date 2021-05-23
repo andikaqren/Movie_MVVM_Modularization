@@ -1,11 +1,10 @@
 package com.andika.architecturecomponent.core.business.domain.utils
 
-import com.andika.architecturecomponent.BuildConfig
+import com.andika.architecturecomponent.core.BuildConfig
 
 
 object AppConstant {
     const val baseUrl = BuildConfig.SERVER_URL
-    const val youtubeKEY = BuildConfig.YOUTUBE_KEY
     const val movieDBKEY = BuildConfig.MOVIE_DB_KEY
     const val TABLE_GENRE = "Genre"
     const val TABLE_Movie = "Movie"

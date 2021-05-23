@@ -9,13 +9,13 @@
         android:name="com.andika.architecturecomponent.framework.presentation.home.movie.MovieFragment"
         android:label="MovieFragment" />
     <fragment
-        android:id="@+id/favoritFragment"
-        android:name="com.andika.architecturecomponent.framework.presentation.home.favourite.FavouriteFragment"
-        android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
-    <fragment
         android:id="@+id/tvFragment"
         android:name="com.andika.architecturecomponent.framework.presentation.home.tv.TvFragment"
         android:label="fragment_tv"
         tools:layout="@layout/fragment_tv" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.andika.architecturecomponent.favourite.FavouriteFragment"
+        app:moduleName="Submission_1_Architecture_Component.favourite"
+        android:label="FavouriteFragment" />
 </navigation>

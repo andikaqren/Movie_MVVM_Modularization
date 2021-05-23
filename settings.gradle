@@ -1,3 +1,4 @@
 include ':app'
 rootProject.name = "Submission 1 Architecture Component"
 include ':core'
+include ':favourite'

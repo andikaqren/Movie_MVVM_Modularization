@@ -1,6 +1,7 @@
 package com.andika.architecturecomponent.core.di
 
 
+import com.andika.architecturecomponent.core.BuildConfig
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSourceImpl
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
@@ -17,6 +18,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 import javax.inject.Singleton
 
 @Module
@@ -33,6 +35,8 @@ object NetworkModule {
             .create()
     }
 
+
+
     @Provides
     @Singleton
     fun providesOkHttp3LoggingInterceptor(): HttpLoggingInterceptor {
@@ -47,15 +51,16 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
+
     }
 
     @Singleton
     @Provides
-    fun getRetrofit(okHttpClient: OkHttpClient, gson: Gson): NetworkManager {
+    fun getRetrofit( client: OkHttpClient,gson: Gson): NetworkManager {
         val retrofit = Retrofit.Builder()
             .baseUrl(AppConstant.baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
+            .client(client)
             .build()
         return retrofit.create(NetworkManager::class.java)
     }

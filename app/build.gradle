@@ -28,16 +28,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org/3/"'
-            buildConfigField "String", "YOUTUBE_KEY", '"AIzaSyBcYmWVVrsOJKTzFZg2pEtopfXyZqpozS8"'
-            buildConfigField "String", "MOVIE_DB_KEY", '"6cec76c7551f93b96434affae74479ba"'
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org/3/"'
-            buildConfigField "String", "YOUTUBE_KEY", '"AIzaSyBcYmWVVrsOJKTzFZg2pEtopfXyZqpozS8"'
-            buildConfigField "String", "MOVIE_DB_KEY", '"6cec76c7551f93b96434affae74479ba"'
         }
     }
     compileOptions {
@@ -50,37 +44,29 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    dynamicFeatures = [':favourite']
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
-    //layout
-    implementation "androidx.appcompat:appcompat:$appCompat_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    implementation "io.supercharge:shimmerlayout:$shimmer_layout"
-    implementation "com.tbuonomo.andrui:viewpagerdotsindicator:$viewpager_dots_indicator"
-
-    //imageloader
-    implementation "com.elyeproj.libraries:loaderviewlibrary:$loaderView_version"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-
-
-
+    //core
+    implementation project(":core")
     //ktx
     implementation "androidx.core:core-ktx:1.3.2"
     implementation "androidx.fragment:fragment-ktx:1.3.3"
-
     //firebase
     implementation platform("com.google.firebase:firebase-bom:$firebase_dom_version")
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
-
     //multidex
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.3.5'
+    implementation "com.google.android.play:core:1.8.3"
 
 
 }
