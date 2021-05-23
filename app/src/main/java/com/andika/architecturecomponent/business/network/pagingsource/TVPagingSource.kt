@@ -3,10 +3,11 @@ package com.andika.architecturecomponent.business.network.pagingsource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.andika.architecturecomponent.business.data.remote.RemoteDataSource
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
 import com.andika.architecturecomponent.business.data.remote.model.RemoteTVs
+import com.andika.architecturecomponent.business.domain.model.TV
 import com.andika.architecturecomponent.business.domain.utils.AppConstant.LATEST_TV
 import com.andika.architecturecomponent.business.domain.utils.AppConstant.POPULAR_TV
+import com.andika.architecturecomponent.business.domain.utils.DataMapper
 import com.bumptech.glide.load.HttpException
 import java.io.IOException
 
@@ -14,9 +15,9 @@ import java.io.IOException
 class TVPagingSource(
     private val service: RemoteDataSource,
     private val query: String
-) : PagingSource<Int, RemoteTV>() {
+) : PagingSource<Int, TV>() {
     private val TV_STARTING_PAGE_INDEX = 1
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RemoteTV> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TV> {
         val position = params.key ?: TV_STARTING_PAGE_INDEX
         return try {
             val response: RemoteTVs = when (query) {
@@ -30,7 +31,7 @@ class TVPagingSource(
                 position + 1
             }
             LoadResult.Page(
-                data = response.results,
+                data = DataMapper.listRemoteTVToTV(response.results),
                 prevKey = if (position == TV_STARTING_PAGE_INDEX) null else position - 1,
                 nextKey = nextKey
             )
@@ -41,7 +42,7 @@ class TVPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, RemoteTV>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, TV>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

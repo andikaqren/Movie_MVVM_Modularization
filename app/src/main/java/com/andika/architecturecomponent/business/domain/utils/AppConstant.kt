@@ -22,6 +22,7 @@ object AppConstant {
     const val POPULAR_TV = "Popular_TV"
     const val LATEST_TV = "Latest_TV"
     const val PAGE_SIZE = 50
+    const val UNKNOWN = "UNKNOWN"
 
 
 }
