@@ -5,31 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTVs
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TvViewModel
 @Inject constructor(
-    private val interactors: MovieInteractors
+    private val interactors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 ) : ViewModel() {
     private var latestJob: Job? = null
     private var topJob: Job? = null
     private var popularJob: Job? = null
-    private var _topTV: MutableLiveData<DataState<RemoteTVs>> = MutableLiveData()
-    private var _popularTV: MutableLiveData<DataState<PagingData<RemoteTV>>> = MutableLiveData()
-    private var _latestTV: MutableLiveData<DataState<PagingData<RemoteTV>>> = MutableLiveData()
-    var topTV: LiveData<DataState<RemoteTVs>> = _topTV
-    var popularTV: LiveData<DataState<PagingData<RemoteTV>>> = _popularTV
-    var latestTV: LiveData<DataState<PagingData<RemoteTV>>> = _latestTV
+    private var _topTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = MutableLiveData()
+    private var _popularTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>> = MutableLiveData()
+    private var _latestTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>> = MutableLiveData()
+    var topTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>> = _topTV
+    var popularTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>> = _popularTV
+    var latestTV: LiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>> = _latestTV
 
     fun reloadData() {
         latestJob?.cancel()

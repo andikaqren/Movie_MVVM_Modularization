@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.MOVIE
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.TV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
 import com.andika.architecturecomponent.business.domain.utils.gone
-import com.andika.architecturecomponent.business.domain.utils.toMovie
-import com.andika.architecturecomponent.business.domain.utils.toTV
 import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.databinding.FragmentFavouriteBinding
 import com.andika.architecturecomponent.framework.adapter.ItemClickListener
@@ -49,14 +46,14 @@ class FavouriteFragment : Fragment() {
     }
 
     private fun initView() {
-        tvAdapter.listener = object : ItemClickListener<RemoteTV> {
-            override fun itemClick(position: Int, item: RemoteTV?, view: Int) {
+        tvAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV> {
+            override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV?, view: Int) {
                 DetailActivity.start(context!!, TV, item!!)
             }
 
         }
-        movieAdapter.listener = object : ItemClickListener<RemoteMovie> {
-            override fun itemClick(position: Int, item: RemoteMovie?, view: Int) {
+        movieAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie> {
+            override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie?, view: Int) {
                 DetailActivity.start(context!!, MOVIE, item!!)
             }
 
@@ -116,11 +113,11 @@ class FavouriteFragment : Fragment() {
         })
         favouriteViewModel.favouriteMovies.observe(viewLifecycleOwner, {
             when (it) {
-                is DataState.Loading -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                     binding.favoriteTvEmpty.gone()
                     binding.titleFavoritMovie.gone()
                 }
-                is DataState.Success -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                     movieAdapter.submitData(lifecycle, it.data.map { localMovie ->
                         localMovie.toMovie()
                     })
@@ -132,11 +129,11 @@ class FavouriteFragment : Fragment() {
         favouriteViewModel.favouriteTV.observe(viewLifecycleOwner,
             {
                 when (it) {
-                    is DataState.Loading -> {
+                    is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                         binding.favoriteTvEmpty.gone()
                         binding.titleFavoritTv.gone()
                     }
-                    is DataState.Success -> {
+                    is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                         tvAdapter.submitData(lifecycle, it.data.map { localTV ->
                             localTV.toTV()
                         })

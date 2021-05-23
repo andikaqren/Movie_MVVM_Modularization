@@ -4,13 +4,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.local.LocalDataSource
-import com.andika.architecturecomponent.business.data.remote.RemoteDataSource
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovies
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTVs
-import com.andika.architecturecomponent.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.data.local.LocalDataSource
+import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs
+import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.business.domain.utils.*
 import com.andika.architecturecomponent.helper.TestCoroutineRule
 import kotlinx.coroutines.Dispatchers
@@ -48,43 +48,43 @@ class MovieInteractorsTest {
 
 
     @Mock
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var remoteDataSource: com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 
     @Mock
-    private lateinit var localDataSource: LocalDataSource
+    private lateinit var localDataSource: com.andika.architecturecomponent.core.business.data.local.LocalDataSource
 
 
     @Mock
-    private lateinit var topMovieObserver: Observer<DataState<RemoteMovies>>
+    private lateinit var topMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>>
 
     @Mock
-    private lateinit var nowPlayingMovieObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var nowPlayingMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
     @Mock
-    private lateinit var upcomingMovieObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var upcomingMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
     @Mock
-    private lateinit var popularMovieObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var popularMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
     @Mock
-    private lateinit var favMovieObserver: Observer<DataState<RemoteMovie>>
+    private lateinit var favMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>
 
     @Mock
-    private lateinit var favTVObserver: Observer<DataState<RemoteTV>>
+    private lateinit var favTVObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>
 
     @Mock
-    private lateinit var topTVObserver: Observer<DataState<RemoteTVs>>
+    private lateinit var topTVObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>>
 
     @Mock
-    private lateinit var latestTVObserver: Observer<DataState<PagingData<RemoteTV>>>
+    private lateinit var latestTVObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>>
 
     @Mock
-    private lateinit var popularTVObserver: Observer<DataState<PagingData<RemoteTV>>>
+    private lateinit var popularTVObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>>
 
-    private var dummyMovie = Helper.getDummyMovies()
+    private var dummyMovie = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyMovies()
 
 
-    private var dummyTV = Helper.getDummyTVs()
+    private var dummyTV = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyTVs()
     private val dummyLocalTV = dummyTV.results[0].toLocalTV()
     private val dummyLocalMovie = dummyMovie.results[0].toLocalMovie()
 
@@ -146,8 +146,8 @@ class MovieInteractorsTest {
             Mockito.`when`(localDataSource.getSelectedTV(anyInt())).thenReturn(dummyLocalTV)
             movieInteractors.getSelectedTV(dummyLocalTV.id).asLiveData().observeForever(favTVObserver)
             Mockito.verify(localDataSource).getSelectedTV(anyInt())
-            Mockito.verify(favTVObserver).onChanged(DataState.Loading)
-            Mockito.verify(favTVObserver).onChanged(DataState.Success(dummyLocalTV.toTV()))
+            Mockito.verify(favTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(favTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyLocalTV.toTV()))
 
         }
     }
@@ -158,8 +158,8 @@ class MovieInteractorsTest {
             Mockito.`when`(localDataSource.getSelectedMovie(anyInt())).thenReturn(dummyLocalMovie)
             movieInteractors.getSelectedMovie(dummyLocalTV.id).asLiveData().observeForever(favMovieObserver)
             Mockito.verify(localDataSource).getSelectedMovie(anyInt())
-            Mockito.verify(favMovieObserver).onChanged(DataState.Loading)
-            Mockito.verify(favMovieObserver).onChanged(DataState.Success(dummyLocalMovie.toMovie()))
+            Mockito.verify(favMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(favMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyLocalMovie.toMovie()))
         }
     }
 
@@ -180,8 +180,8 @@ class MovieInteractorsTest {
             Mockito.`when`(remoteDataSource.getTopMovies(anyInt())).thenReturn(dummyMovie)
             movieInteractors.getTopMovies().asLiveData().observeForever(topMovieObserver)
             Mockito.verify(remoteDataSource).getTopMovies(1)
-            Mockito.verify(topMovieObserver).onChanged(DataState.Loading)
-            Mockito.verify(topMovieObserver).onChanged(DataState.Success(dummyMovie))
+            Mockito.verify(topMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(topMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyMovie))
         }
     }
 
@@ -220,8 +220,8 @@ class MovieInteractorsTest {
             Mockito.`when`(remoteDataSource.getTopRatedTV()).thenReturn(dummyTV)
             movieInteractors.getTopRatedTv().asLiveData().observeForever(topTVObserver)
             Mockito.verify(remoteDataSource).getTopRatedTV()
-            Mockito.verify(topTVObserver).onChanged(DataState.Loading)
-            Mockito.verify(topTVObserver).onChanged(DataState.Success(dummyTV))
+            Mockito.verify(topTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(topTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyTV))
         }
     }
 

@@ -7,16 +7,16 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.POSTER_URL_500
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.databinding.PromoBinding
 import com.bumptech.glide.Glide
 import java.util.*
 
 class TvPagerAdapter :
     PagerAdapter() {
-    var listener: ItemClickListener<RemoteTV>? = null
-    var list: MutableList<RemoteTV> = ArrayList()
+    var listener: ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>? = null
+    var list: MutableList<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV> = ArrayList()
 
 
     override fun getCount(): Int {
@@ -30,7 +30,7 @@ class TvPagerAdapter :
         return view === `object`
     }
 
-    fun setData(movies: List<RemoteTV>) {
+    fun setData(movies: List<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>) {
         list.clear()
         for (movie in movies) {
             movie.backdrop_path?.let {

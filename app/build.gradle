@@ -6,7 +6,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
 }
-
+apply from: '../shared_dependencies.gradle'
 android {
 
     compileSdkVersion 30
@@ -53,13 +53,6 @@ android {
 }
 
 dependencies {
-    //core
-    implementation "androidx.core:core-ktx:$ktx_version"
-    //localDB
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
     //layout
     implementation "androidx.appcompat:appcompat:$appCompat_version"
     implementation "com.google.android.material:material:$material_version"
@@ -71,32 +64,9 @@ dependencies {
     implementation "io.supercharge:shimmerlayout:$shimmer_layout"
     implementation "com.tbuonomo.andrui:viewpagerdotsindicator:$viewpager_dots_indicator"
 
-    //test
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
-    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "org.mockito:mockito-inline:$mockito_version"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
-    testImplementation "androidx.arch.core:core-testing:$testing_core"
-
-
     //imageloader
     implementation "com.elyeproj.libraries:loaderviewlibrary:$loaderView_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
-
-    //di
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
-    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
-    //network
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     //livedata
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
@@ -110,9 +80,6 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$firebase_dom_version")
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
-
-    //paging
-    implementation 'androidx.paging:paging-runtime:3.0.0'
 
     //multidex
     implementation 'com.android.support:multidex:1.0.3'

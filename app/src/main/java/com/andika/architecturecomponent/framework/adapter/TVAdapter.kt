@@ -3,16 +3,16 @@ package com.andika.architecturecomponent.framework.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.POSTER_URL_500
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.databinding.ProductBinding
 import com.bumptech.glide.Glide
 
 
 class TVAdapter :
-    BaseAdapter<RemoteTV, TVAdapter.ViewHolder>() {
-    inner class ViewHolder(listener: ItemClickListener<RemoteTV>, view: ProductBinding) :
-        BaseHolder<RemoteTV>(listener, view.root) {
+    BaseAdapter<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV, TVAdapter.ViewHolder>() {
+    inner class ViewHolder(listener: ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>, view: ProductBinding) :
+        BaseHolder<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>(listener, view.root) {
         val bind = view
         fun bind() = with(itemView) {
             itemData?.let {
@@ -39,7 +39,7 @@ class TVAdapter :
         )
     }
 
-    override fun bindViewHolder(holder: ViewHolder?, data: RemoteTV?, position: Int) {
+    override fun bindViewHolder(holder: ViewHolder?, data: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV?, position: Int) {
         holder?.bind()
     }
 

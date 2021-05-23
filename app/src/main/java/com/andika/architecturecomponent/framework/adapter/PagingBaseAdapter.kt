@@ -7,16 +7,16 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.POSTER_URL_500
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.databinding.PromoBinding
 import com.bumptech.glide.Glide
 import java.util.*
 
 class PagingBaseAdapter :
     PagerAdapter() {
-    var listener: ItemClickListener<RemoteMovie>? = null
-    var list: MutableList<RemoteMovie> = ArrayList()
+    var listener: ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>? = null
+    var list: MutableList<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie> = ArrayList()
 
     override fun getCount(): Int {
         return list.size
@@ -29,7 +29,7 @@ class PagingBaseAdapter :
         return view === `object`
     }
 
-    fun setData(movies: List<RemoteMovie>) {
+    fun setData(movies: List<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>) {
         list.clear()
         list.addAll(movies)
         notifyDataSetChanged()

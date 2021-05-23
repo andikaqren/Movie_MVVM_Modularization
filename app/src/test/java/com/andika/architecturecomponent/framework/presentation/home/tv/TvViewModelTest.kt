@@ -4,11 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTVs
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.domain.utils.Helper
-import com.andika.architecturecomponent.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.Helper
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.helper.TestCoroutineRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,19 +42,19 @@ class TvViewModelTest {
     private lateinit var tvViewModel: TvViewModel
 
     @Mock
-    private lateinit var movieInteractors: MovieInteractors
+    private lateinit var movieInteractors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 
     @Mock
-    private lateinit var topObserver: Observer<DataState<RemoteTVs>>
+    private lateinit var topObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs>>
 
     @Mock
-    private lateinit var latestObserver: Observer<DataState<PagingData<RemoteTV>>>
+    private lateinit var latestObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>>
 
     @Mock
-    private lateinit var popularObserver: Observer<DataState<PagingData<RemoteTV>>>
+    private lateinit var popularObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV>>>
 
-    private var dummyData = Helper.getDummyTVs()
-    private var dummyDataPager = Helper.getDummyTVPager()
+    private var dummyData = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyTVs()
+    private var dummyDataPager = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyTVPager()
 
     private var dummyError = Exception()
 
@@ -96,13 +96,13 @@ class TvViewModelTest {
     fun testGetTopTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getTopRatedTv()).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyData))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyData))
             })
             tvViewModel.getTopRatedTV()
             verify(movieInteractors).getTopRatedTv()
-            verify(topObserver).onChanged(DataState.Loading)
-            verify(topObserver).onChanged(DataState.Success(dummyData))
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyData))
 
         }
     }
@@ -111,13 +111,13 @@ class TvViewModelTest {
     fun testGetErrorTopTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getTopRatedTv()).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             tvViewModel.getTopRatedTV()
             verify(movieInteractors).getTopRatedTv()
-            verify(topObserver).onChanged(DataState.Loading)
-            verify(topObserver).onChanged(DataState.Error(dummyError))
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }
@@ -126,13 +126,13 @@ class TvViewModelTest {
     fun testGetNowPlayingTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getLatestTV(tvViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyDataPager))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
             })
             tvViewModel.getLatestTV()
             verify(movieInteractors).getLatestTV(tvViewModel.viewModelScope)
-            verify(latestObserver).onChanged(DataState.Loading)
-            verify(latestObserver).onChanged(DataState.Success(dummyDataPager))
+            verify(latestObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(latestObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
         }
     }
 
@@ -140,13 +140,13 @@ class TvViewModelTest {
     fun testGetErrorNowPlayingTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getLatestTV(tvViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             tvViewModel.getLatestTV()
             verify(movieInteractors).getLatestTV(tvViewModel.viewModelScope)
-            verify(latestObserver).onChanged(DataState.Loading)
-            verify(latestObserver).onChanged(DataState.Error(dummyError))
+            verify(latestObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(latestObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }
@@ -155,13 +155,13 @@ class TvViewModelTest {
     fun testGetPopularTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getPopularTv(tvViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyDataPager))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
             })
             tvViewModel.getPopularTV()
             verify(movieInteractors).getPopularTv(tvViewModel.viewModelScope)
-            verify(popularObserver).onChanged(DataState.Loading)
-            verify(popularObserver).onChanged(DataState.Success(dummyDataPager))
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
         }
     }
 
@@ -169,13 +169,13 @@ class TvViewModelTest {
     fun testGetErrorPopularTV() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getPopularTv(tvViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             tvViewModel.getPopularTV()
             verify(movieInteractors).getPopularTv(tvViewModel.viewModelScope)
-            verify(popularObserver).onChanged(DataState.Loading)
-            verify(popularObserver).onChanged(DataState.Error(dummyError))
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }

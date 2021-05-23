@@ -12,16 +12,16 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.data.remote.model.RemoteTV
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.domain.utils.AppConstant
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.EMPTY
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.ID
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.MOVIE
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.POSTER_URL_500
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.TV
-import com.andika.architecturecomponent.business.domain.utils.AppConstant.TYPE
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.EMPTY
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.ID
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TYPE
 import com.andika.architecturecomponent.business.domain.utils.gone
 import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.databinding.ActivityDetailBinding
@@ -51,17 +51,17 @@ class DetailActivity : AppCompatActivity() {
         var type = MOVIE
         var isFavourite = false
         var id = EMPTY
-        lateinit var movie: RemoteMovie
-        lateinit var tv: RemoteTV
+        lateinit var movie: com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+        lateinit var tv: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
         fun start(context: Context, type: String, data: Any) {
             val intent = Intent(context, DetailActivity::class.java)
             when (type) {
                 MOVIE -> {
-                    movie = data as RemoteMovie
+                    movie = data as com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
                     id = movie.id.toString()
                 }
                 TV -> {
-                    tv = data as RemoteTV
+                    tv = data as com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
                     id = tv.id.toString()
                 }
             }
@@ -104,11 +104,11 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.movie.observe(this, {
             when (it) {
-                is DataState.Loading -> showLoading()
-                is DataState.Error -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> showLoading()
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
 
                 }
-                is DataState.Success -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                     movie = it.data
                     initView()
                     observeView()
@@ -117,11 +117,11 @@ class DetailActivity : AppCompatActivity() {
         })
         detailViewModel.tv.observe(this, {
             when (it) {
-                is DataState.Loading -> showLoading()
-                is DataState.Error -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> showLoading()
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
 
                 }
-                is DataState.Success -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                     tv = it.data
                     initView()
                     observeView()
@@ -139,13 +139,13 @@ class DetailActivity : AppCompatActivity() {
             MOVIE -> {
                 detailViewModel.favMovie.observe(this, {
                     when (it) {
-                        is DataState.Loading -> binding.detailFrame.ivDetailFrameFav.gone()
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> binding.detailFrame.ivDetailFrameFav.gone()
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             isFavourite = false
                             binding.detailFrame.ivDetailFrameFav.visible()
                             setFav()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             isFavourite = true
                             binding.detailFrame.ivDetailFrameFav.visible()
                             setFav()
@@ -154,12 +154,12 @@ class DetailActivity : AppCompatActivity() {
                 })
                 detailViewModel.recomendationMovies.observe(this, {
                     when (it) {
-                        is DataState.Loading -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.visible()
                             binding.itemDetail.detailShimmer.startShimmerAnimation()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -169,7 +169,7 @@ class DetailActivity : AppCompatActivity() {
                             if (recomendationAdapter.list.isNullOrEmpty()) binding.itemDetail.detailRecomendationTextCommingSoon.visible()
 
                         }
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.visible()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -180,12 +180,12 @@ class DetailActivity : AppCompatActivity() {
                 })
                 detailViewModel.similarMovies.observe(this, {
                     when (it) {
-                        is DataState.Loading -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.visible()
                             binding.itemDetail.detailShimmer.startShimmerAnimation()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -195,7 +195,7 @@ class DetailActivity : AppCompatActivity() {
                             if (similarAdapter.list.isNullOrEmpty()) binding.itemDetail.detailSimiliarTextCommingSoon.visible()
 
                         }
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.visible()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -206,13 +206,13 @@ class DetailActivity : AppCompatActivity() {
             TV -> {
                 detailViewModel.favTV.observe(this, {
                     when (it) {
-                        is DataState.Loading -> binding.detailFrame.ivDetailFrameFav.gone()
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> binding.detailFrame.ivDetailFrameFav.gone()
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             isFavourite = false
                             binding.detailFrame.ivDetailFrameFav.visible()
                             setFav()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             isFavourite = true
                             binding.detailFrame.ivDetailFrameFav.visible()
                             setFav()
@@ -221,12 +221,12 @@ class DetailActivity : AppCompatActivity() {
                 })
                 detailViewModel.recomendationTV.observe(this, {
                     when (it) {
-                        is DataState.Loading -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.visible()
                             binding.itemDetail.detailShimmer.startShimmerAnimation()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -234,7 +234,7 @@ class DetailActivity : AppCompatActivity() {
                             recomendationTVAdapter.notifyDataSetChanged()
 
                         }
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             binding.itemDetail.detailRecomendationTextCommingSoon.visible()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -244,12 +244,12 @@ class DetailActivity : AppCompatActivity() {
                 })
                 detailViewModel.similarTV.observe(this, {
                     when (it) {
-                        is DataState.Loading -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Loading -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.visible()
                             binding.itemDetail.detailShimmer.startShimmerAnimation()
                         }
-                        is DataState.Success -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.gone()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -257,7 +257,7 @@ class DetailActivity : AppCompatActivity() {
                             similarTVAdapter.notifyDataSetChanged()
 
                         }
-                        is DataState.Error -> {
+                        is com.andika.architecturecomponent.core.business.domain.state.DataState.Error -> {
                             binding.itemDetail.detailSimiliarTextCommingSoon.visible()
                             binding.itemDetail.detailShimmer.gone()
                             binding.itemDetail.detailShimmer.stopShimmerAnimation()
@@ -268,7 +268,7 @@ class DetailActivity : AppCompatActivity() {
         }
         detailViewModel.dynamicLink.observe(this, {
             when (it) {
-                is DataState.Success -> {
+                is com.andika.architecturecomponent.core.business.domain.state.DataState.Success -> {
                     showBottomSheet(it.data)
                 }
             }
@@ -357,14 +357,14 @@ class DetailActivity : AppCompatActivity() {
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
                 }
-                similarAdapter.listener = object : ItemClickListener<RemoteMovie> {
-                    override fun itemClick(position: Int, item: RemoteMovie?, view: Int) {
+                similarAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie> {
+                    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie?, view: Int) {
                         start(this@DetailActivity, type, item!!)
                     }
 
                 }
-                recomendationAdapter.listener = object : ItemClickListener<RemoteMovie> {
-                    override fun itemClick(position: Int, item: RemoteMovie?, view: Int) {
+                recomendationAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie> {
+                    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie?, view: Int) {
                         start(this@DetailActivity, type, item!!)
                     }
                 }
@@ -399,14 +399,14 @@ class DetailActivity : AppCompatActivity() {
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
-                similarTVAdapter.listener = object : ItemClickListener<RemoteTV> {
-                    override fun itemClick(position: Int, item: RemoteTV?, view: Int) {
+                similarTVAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV> {
+                    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV?, view: Int) {
                         start(this@DetailActivity, type, item!!)
                     }
 
                 }
-                recomendationTVAdapter.listener = object : ItemClickListener<RemoteTV> {
-                    override fun itemClick(position: Int, item: RemoteTV?, view: Int) {
+                recomendationTVAdapter.listener = object : ItemClickListener<com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV> {
+                    override fun itemClick(position: Int, item: com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV?, view: Int) {
                         start(this@DetailActivity, type, item!!)
                     }
                 }
@@ -419,7 +419,7 @@ class DetailActivity : AppCompatActivity() {
             MOVIE -> intent.putExtra(MOVIE, movie)
             TV -> intent.putExtra(TV, tv)
         }
-        val deeplink = "${AppConstant.DEEPLINKURL}?$TYPE=$type&$ID=$id"
+        val deeplink = "${com.andika.architecturecomponent.core.business.domain.utils.AppConstant.DEEPLINKURL}?$TYPE=$type&$ID=$id"
         detailViewModel.getDynamicLink(deeplink)
     }
 

@@ -4,11 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovie
-import com.andika.architecturecomponent.business.data.remote.model.RemoteMovies
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.domain.utils.Helper
-import com.andika.architecturecomponent.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.Helper
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.helper.TestCoroutineRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,23 +43,23 @@ class MovieViewModelTest {
     private lateinit var movieViewModel: MovieViewModel
 
     @Mock
-    private lateinit var movieInteractors: MovieInteractors
+    private lateinit var movieInteractors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 
 
     @Mock
-    private lateinit var topObserver: Observer<DataState<RemoteMovies>>
+    private lateinit var topObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies>>
 
     @Mock
-    private lateinit var nowPlayingObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var nowPlayingObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
     @Mock
-    private lateinit var popularObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var popularObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
     @Mock
-    private lateinit var upcomingObserver: Observer<DataState<PagingData<RemoteMovie>>>
+    private lateinit var upcomingObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie>>>
 
-    private var dummyDataPager = Helper.getDummyMoviePager()
-    private var dummyData = Helper.getDummyMovies()
+    private var dummyDataPager = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyMoviePager()
+    private var dummyData = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyMovies()
 
     private var dummyError = Exception()
 
@@ -103,13 +103,13 @@ class MovieViewModelTest {
     fun testGetTopMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getTopMovies()).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyData))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyData))
             })
             movieViewModel.getTopMovies()
             verify(movieInteractors).getTopMovies()
-            verify(topObserver).onChanged(DataState.Loading)
-            verify(topObserver).onChanged(DataState.Success(dummyData))
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyData))
         }
     }
 
@@ -117,13 +117,13 @@ class MovieViewModelTest {
     fun testGetErrorTopMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getTopMovies()).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             movieViewModel.getTopMovies()
             verify(movieInteractors).getTopMovies()
-            verify(topObserver).onChanged(DataState.Loading)
-            verify(topObserver).onChanged(DataState.Error(dummyError))
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(topObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }
@@ -132,13 +132,13 @@ class MovieViewModelTest {
     fun testGetNowPlayingMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getNowPlaying(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyDataPager))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
             })
             movieViewModel.getNowPlayingMovies()
             verify(movieInteractors).getNowPlaying(movieViewModel.viewModelScope)
-            verify(nowPlayingObserver).onChanged(DataState.Loading)
-            verify(nowPlayingObserver).onChanged(DataState.Success(dummyDataPager))
+            verify(nowPlayingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(nowPlayingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
         }
     }
 
@@ -146,13 +146,13 @@ class MovieViewModelTest {
     fun testGetErrorNowPlayingMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getNowPlaying(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             movieViewModel.getNowPlayingMovies()
             verify(movieInteractors).getNowPlaying(movieViewModel.viewModelScope)
-            verify(nowPlayingObserver).onChanged(DataState.Loading)
-            verify(nowPlayingObserver).onChanged(DataState.Error(dummyError))
+            verify(nowPlayingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(nowPlayingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }
@@ -161,13 +161,13 @@ class MovieViewModelTest {
     fun testGetPopularMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getPopular(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyDataPager))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
             })
             movieViewModel.getPopularMovies()
             verify(movieInteractors).getPopular(movieViewModel.viewModelScope)
-            verify(popularObserver).onChanged(DataState.Loading)
-            verify(popularObserver).onChanged(DataState.Success(dummyDataPager))
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
         }
     }
 
@@ -175,13 +175,13 @@ class MovieViewModelTest {
     fun testGetErrorPopularMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getPopular(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             movieViewModel.getPopularMovies()
             verify(movieInteractors).getPopular(movieViewModel.viewModelScope)
-            verify(popularObserver).onChanged(DataState.Loading)
-            verify(popularObserver).onChanged(DataState.Error(dummyError))
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(popularObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }
@@ -190,13 +190,13 @@ class MovieViewModelTest {
     fun testGetUpcomingMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getUpcoming(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Success(dummyDataPager))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
             })
             movieViewModel.getUpcomingMovies()
             verify(movieInteractors).getUpcoming(movieViewModel.viewModelScope)
-            verify(upcomingObserver).onChanged(DataState.Loading)
-            verify(upcomingObserver).onChanged(DataState.Success(dummyDataPager))
+            verify(upcomingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(upcomingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyDataPager))
 
         }
     }
@@ -205,13 +205,13 @@ class MovieViewModelTest {
     fun testGetErrorUpcomingMovies() {
         coroutineRule.runBlockingTest {
             `when`(movieInteractors.getUpcoming(movieViewModel.viewModelScope)).thenReturn(flow {
-                emit(DataState.Loading)
-                emit(DataState.Error(dummyError))
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
             })
             movieViewModel.getUpcomingMovies()
             verify(movieInteractors).getUpcoming(movieViewModel.viewModelScope)
-            verify(upcomingObserver).onChanged(DataState.Loading)
-            verify(upcomingObserver).onChanged(DataState.Error(dummyError))
+            verify(upcomingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            verify(upcomingObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Error(dummyError))
 
         }
     }

@@ -4,26 +4,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.local.model.LocalMovie
-import com.andika.architecturecomponent.business.data.local.model.LocalTV
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
+import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteViewModel
 @Inject constructor(
-    private val interactors: MovieInteractors
+    private val interactors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 ) : ViewModel() {
     var movieJob: Job? = null
     var tvJob: Job? = null
-    var favouriteMovies: MutableLiveData<DataState<PagingData<LocalMovie>>> = MutableLiveData()
-    var favouriteTV: MutableLiveData<DataState<PagingData<LocalTV>>> = MutableLiveData()
+    var favouriteMovies: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.local.model.LocalMovie>>> = MutableLiveData()
+    var favouriteTV: MutableLiveData<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.local.model.LocalTV>>> = MutableLiveData()
 
 
     fun reloadData() {

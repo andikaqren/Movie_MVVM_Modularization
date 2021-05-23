@@ -4,11 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.business.data.local.model.LocalMovie
-import com.andika.architecturecomponent.business.data.local.model.LocalTV
-import com.andika.architecturecomponent.business.domain.state.DataState
-import com.andika.architecturecomponent.business.domain.utils.Helper
-import com.andika.architecturecomponent.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
+import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
+import com.andika.architecturecomponent.core.business.domain.state.DataState
+import com.andika.architecturecomponent.core.business.domain.utils.Helper
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.helper.TestCoroutineRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,16 +40,16 @@ class FavouriteViewModelTest {
     private lateinit var favViewModel: FavouriteViewModel
 
     @Mock
-    private lateinit var movieInteractors: MovieInteractors
+    private lateinit var movieInteractors: com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 
     @Mock
-    private lateinit var favMovieObserver: Observer<DataState<PagingData<LocalMovie>>>
+    private lateinit var favMovieObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.local.model.LocalMovie>>>
 
     @Mock
-    private lateinit var favTVObserver: Observer<DataState<PagingData<LocalTV>>>
+    private lateinit var favTVObserver: Observer<com.andika.architecturecomponent.core.business.domain.state.DataState<PagingData<com.andika.architecturecomponent.core.business.data.local.model.LocalTV>>>
 
-    private var dummyTV = Helper.getDummyLocalTV()
-    private var dummyMovie = Helper.getDummyLocalMovie()
+    private var dummyTV = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyLocalTV()
+    private var dummyMovie = com.andika.architecturecomponent.core.business.domain.utils.Helper.getDummyLocalMovie()
 
     @Before
     fun before() {
@@ -75,13 +75,13 @@ class FavouriteViewModelTest {
         coroutineRule.runBlockingTest {
             Mockito.`when`(movieInteractors.getAllFavouriteTV(favViewModel.viewModelScope))
                 .thenReturn(flow {
-                    emit(DataState.Loading)
-                    emit(DataState.Success(dummyTV))
+                    emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                    emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyTV))
                 })
             favViewModel.getFavTV()
             Mockito.verify(movieInteractors).getAllFavouriteTV(favViewModel.viewModelScope)
-            Mockito.verify(favTVObserver).onChanged(DataState.Loading)
-            Mockito.verify(favTVObserver).onChanged(DataState.Success(dummyTV))
+            Mockito.verify(favTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(favTVObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyTV))
 
         }
     }
@@ -91,13 +91,13 @@ class FavouriteViewModelTest {
         coroutineRule.runBlockingTest {
             Mockito.`when`(movieInteractors.getAllFavouriteMovie(favViewModel.viewModelScope))
                 .thenReturn(flow {
-                    emit(DataState.Loading)
-                    emit(DataState.Success(dummyMovie))
+                    emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+                    emit(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyMovie))
                 })
             favViewModel.getFavMovie()
             Mockito.verify(movieInteractors).getAllFavouriteMovie(favViewModel.viewModelScope)
-            Mockito.verify(favMovieObserver).onChanged(DataState.Loading)
-            Mockito.verify(favMovieObserver).onChanged(DataState.Success(dummyMovie))
+            Mockito.verify(favMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Loading)
+            Mockito.verify(favMovieObserver).onChanged(com.andika.architecturecomponent.core.business.domain.state.DataState.Success(dummyMovie))
 
         }
     }

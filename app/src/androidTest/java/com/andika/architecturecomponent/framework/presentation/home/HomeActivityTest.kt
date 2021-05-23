@@ -13,7 +13,7 @@ import androidx.test.espresso.contrib.ViewPagerActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.domain.utils.EspressoIdlingResource
+import com.andika.architecturecomponent.core.business.domain.utils.EspressoIdlingResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
@@ -27,13 +27,13 @@ class HomeActivityTest {
     @Before
     fun setup() {
         ActivityScenario.launch(HomeActivity::class.java)
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource())
+        IdlingRegistry.getInstance().register(com.andika.architecturecomponent.core.business.domain.utils.EspressoIdlingResource.getEspressoIdlingResource())
 
     }
 
     @After
     fun tearDown() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource())
+        IdlingRegistry.getInstance().unregister(com.andika.architecturecomponent.core.business.domain.utils.EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @Test
