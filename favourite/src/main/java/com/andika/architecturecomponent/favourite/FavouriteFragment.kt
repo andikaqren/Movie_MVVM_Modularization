@@ -1,11 +1,13 @@
 package com.andika.architecturecomponent.favourite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.filter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andika.architecturecomponent.business.domain.utils.gone
@@ -91,18 +93,9 @@ class FavouriteFragment : Fragment() {
         movieAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {
 
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                super.onItemRangeInserted(positionStart, itemCount)
-                if (itemCount > 0) {
-                    binding.favouriteMovieEmpty.gone()
-                } else {
-                    binding.favouriteMovieEmpty.visible()
-                }
-            }
-
-            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-                super.onItemRangeRemoved(positionStart, itemCount)
-                if (itemCount > 0) {
+            override fun onStateRestorationPolicyChanged() {
+                super.onStateRestorationPolicyChanged()
+                if (movieAdapter.itemCount > 0) {
                     binding.favouriteMovieEmpty.gone()
                 } else {
                     binding.favouriteMovieEmpty.visible()
@@ -112,17 +105,10 @@ class FavouriteFragment : Fragment() {
         })
         tvAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (itemCount > 0) {
-                    binding.favouriteTvEmpty.gone()
-                } else {
-                    binding.favouriteTvEmpty.visible()
-                }
-            }
 
-            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-                super.onItemRangeRemoved(positionStart, itemCount)
-                if (itemCount > 0) {
+            override fun onStateRestorationPolicyChanged() {
+                super.onStateRestorationPolicyChanged()
+                if (tvAdapter.itemCount > 0) {
                     binding.favouriteTvEmpty.gone()
                 } else {
                     binding.favouriteTvEmpty.visible()
@@ -132,14 +118,13 @@ class FavouriteFragment : Fragment() {
         favouriteViewModel.favouriteMovies.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Loading -> {
-                    binding.favouriteTvEmpty.gone()
                     binding.favouriteMovieEmpty.gone()
                 }
                 is DataState.Success -> {
                     movieAdapter.submitData(lifecycle, it.data)
                 }
                 is DataState.Error -> {
-                    //Temporary do nothing
+                    binding.favouriteMovieEmpty.visible()
                 }
             }
         })
@@ -149,13 +134,12 @@ class FavouriteFragment : Fragment() {
                 when (it) {
                     is DataState.Loading -> {
                         binding.favouriteTvEmpty.gone()
-                        binding.titleFavouriteMovie.gone()
                     }
                     is DataState.Success -> {
                         tvAdapter.submitData(lifecycle, it.data)
                     }
                     is DataState.Error -> {
-                        //Temporary do nothing
+                        binding.favouriteTvEmpty.visible()
                     }
                 }
             })

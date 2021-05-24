@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
             }
-            false
+            true
         }
     }
     private fun installChatModule() {
