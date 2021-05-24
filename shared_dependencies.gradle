@@ -1,0 +1,42 @@
+ dependencies {
+    //di
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
+    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    //core
+    implementation "androidx.core:core-ktx:$ktx_version"
+    //test
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+    testImplementation "androidx.arch.core:core-testing:$testing_core"
+    //livedata
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //network
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    //paging
+    implementation 'androidx.paging:paging-runtime:3.0.0'
+    //imageloader
+    implementation "com.elyeproj.libraries:loaderviewlibrary:$loaderView_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+     //layout
+    implementation "androidx.appcompat:appcompat:$appCompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "io.supercharge:shimmerlayout:$shimmer_layout"
+    implementation "com.tbuonomo.andrui:viewpagerdotsindicator:$viewpager_dots_indicator"
+
+}
