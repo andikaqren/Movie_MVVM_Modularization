@@ -25,7 +25,7 @@ import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.DEEPLINKURL
 import com.andika.architecturecomponent.databinding.ActivityDetailBinding
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.andika.architecturecomponent.core.ui.adapter.MovieAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVAdapter
 import com.bumptech.glide.Glide

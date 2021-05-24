@@ -15,10 +15,10 @@ import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
-import com.andika.architecturecomponent.favourite.databinding.FragmentFavouriteBinding
+import com.andika.architecturecomponent.databinding.FragmentFavouriteBinding
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +26,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class FavouriteFragment : Fragment() {
+
+    @Inject
+    lateinit var factory:FavouriteViewModel_Factory
     private var movieAdapter = MoviePagingAdapter()
     private var tvAdapter = TVPagingAdapter()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
@@ -58,11 +61,11 @@ class FavouriteFragment : Fragment() {
             }
 
         }
-        binding.rvFavouriteMovie.run {
+        binding.rvFavoriteMovie.run {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-        binding.rvFavouriteTv.run {
+        binding.rvFavoriteTv.run {
             adapter = tvAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -76,18 +79,18 @@ class FavouriteFragment : Fragment() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favouriteMovieEmpty.gone()
+                    binding.favoriteMovieEmpty.gone()
                 } else {
-                    binding.favouriteMovieEmpty.visible()
+                    binding.favoriteMovieEmpty.visible()
                 }
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 super.onItemRangeRemoved(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favouriteMovieEmpty.gone()
+                    binding.favoriteMovieEmpty.gone()
                 } else {
-                    binding.favouriteMovieEmpty.visible()
+                    binding.favoriteMovieEmpty.visible()
                 }
             }
 
@@ -96,26 +99,26 @@ class FavouriteFragment : Fragment() {
             RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (itemCount > 0) {
-                    binding.favouriteTvEmpty.gone()
+                    binding.favoriteTvEmpty.gone()
                 } else {
-                    binding.favouriteTvEmpty.visible()
+                    binding.favoriteTvEmpty.visible()
                 }
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 super.onItemRangeRemoved(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favouriteTvEmpty.gone()
+                    binding.favoriteTvEmpty.gone()
                 } else {
-                    binding.favouriteTvEmpty.visible()
+                    binding.favoriteTvEmpty.visible()
                 }
             }
         })
         favouriteViewModel.favouriteMovies.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Loading -> {
-                    binding.favouriteTvEmpty.gone()
-                    binding.titleFavouriteMovie.gone()
+                    binding.favoriteTvEmpty.gone()
+                    binding.favoriteMovieEmpty.gone()
                 }
                 is DataState.Success -> {
                     movieAdapter.submitData(lifecycle, it.data)
@@ -130,8 +133,8 @@ class FavouriteFragment : Fragment() {
             {
                 when (it) {
                     is DataState.Loading -> {
-                        binding.favouriteTvEmpty.gone()
-                        binding.titleFavouriteTv.gone()
+                        binding.favoriteTvEmpty.gone()
+                        binding.titleFavoritMovie.gone()
                     }
                     is DataState.Success -> {
                         tvAdapter.submitData(lifecycle, it.data)

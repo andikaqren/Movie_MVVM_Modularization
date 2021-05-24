@@ -2,7 +2,7 @@ package com.andika.architecturecomponent.core.ui.adapter
 
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 
 abstract class BasePagingAdapter<S : Any, T : BaseHolder<S>>(diffUtil: DiffUtil.ItemCallback<S>) :
     PagingDataAdapter<S, T>(diffUtil) {

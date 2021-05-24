@@ -6,7 +6,7 @@ import com.andika.architecturecomponent.core.R
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.core.databinding.ProductBinding
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.bumptech.glide.Glide
 
 

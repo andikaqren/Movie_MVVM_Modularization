@@ -14,7 +14,7 @@ import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
 import com.andika.architecturecomponent.databinding.FragmentTvBinding
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TvPagerAdapter
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity

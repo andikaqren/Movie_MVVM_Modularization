@@ -1,4 +1,4 @@
-package com.andika.architecturecomponent.core.ui
+package com.andika.architecturecomponent.core.ui.listener
 
 import androidx.annotation.IdRes
 

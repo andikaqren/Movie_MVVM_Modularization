@@ -10,7 +10,7 @@ import com.andika.architecturecomponent.core.R
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.core.databinding.PromoBinding
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.bumptech.glide.Glide
 import java.util.*
 

@@ -13,7 +13,7 @@ import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.databinding.FragmentMoviesBinding
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.PagingBaseAdapter
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity

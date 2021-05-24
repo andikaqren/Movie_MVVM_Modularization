@@ -1,7 +1,7 @@
 package com.andika.architecturecomponent.core.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.andika.architecturecomponent.core.ui.ItemClickListener
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import java.util.*
 
 abstract class BaseAdapter<S, T : BaseHolder<S>> : RecyclerView.Adapter<T>() {
