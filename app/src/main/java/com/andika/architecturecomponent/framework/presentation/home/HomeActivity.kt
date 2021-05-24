@@ -19,6 +19,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
+  /*      binding.navView.setOnNavigationItemSelectedListener {
+            if (it.itemId == R.id.favouriteFragment) {
+                installChatModule()
+            }
+            true
+
+        }*/
+
+    }
+
+    private fun installChatModule() {
 
     }
 }

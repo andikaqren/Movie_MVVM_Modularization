@@ -2,5 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.andika.architecturecomponent.favourite">
-
+    <dist:module
+        dist:instant="false"
+        dist:title="favourite">
+        <dist:delivery>
+            <dist:on-demand />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+    </dist:module>
 </manifest>

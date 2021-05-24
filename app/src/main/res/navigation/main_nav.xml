@@ -16,6 +16,8 @@
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.andika.architecturecomponent.favourite.FavouriteFragment"
-        app:moduleName="Submission_1_Architecture_Component.favourite"
+        app:moduleName="favourite feature"
         android:label="FavouriteFragment" />
+
+
 </navigation>
