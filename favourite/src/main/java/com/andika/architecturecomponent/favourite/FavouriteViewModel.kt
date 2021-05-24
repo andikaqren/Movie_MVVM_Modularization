@@ -8,23 +8,23 @@ import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
-@HiltViewModel
-class FavouriteViewModel
-@Inject constructor(
-    private val interactors: MovieInteractors
-) : ViewModel() {
+
+class FavouriteViewModel : ViewModel() {
+    private lateinit var interactors:MovieInteractors
     var movieJob: Job? = null
     var tvJob: Job? = null
     var favouriteMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
     var favouriteTV: MutableLiveData<DataState<PagingData<TV>>> = MutableLiveData()
 
+
+    fun setApi(interactors: MovieInteractors){
+        this.interactors = interactors
+    }
 
     fun reloadData() {
         movieJob?.cancel()

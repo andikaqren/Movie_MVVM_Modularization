@@ -15,20 +15,24 @@ import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
-import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
+import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.di.FavouriteModule
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
+import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 import com.andika.architecturecomponent.databinding.FragmentFavouriteBinding
+import com.andika.architecturecomponent.favourite.di.DaggerFavouriteComponent
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity
-import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@AndroidEntryPoint
 class FavouriteFragment : Fragment() {
 
     @Inject
-    lateinit var factory:FavouriteViewModel_Factory
+    lateinit var interactors: MovieInteractors
+
     private var movieAdapter = MoviePagingAdapter()
     private var tvAdapter = TVPagingAdapter()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
@@ -42,6 +46,17 @@ class FavouriteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        DaggerFavouriteComponent.builder()
+            .context(requireContext())
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    requireContext(),
+                    FavouriteModule::class.java
+                )
+            )
+            .build()
+            .inject(this)
+        favouriteViewModel.setApi(interactors)
         super.onViewCreated(view, savedInstanceState)
         initView()
         initObserver()
@@ -123,7 +138,7 @@ class FavouriteFragment : Fragment() {
                 is DataState.Success -> {
                     movieAdapter.submitData(lifecycle, it.data)
                 }
-                is DataState.Error->{
+                is DataState.Error -> {
                     //Temporary do nothing
                 }
             }
@@ -139,9 +154,10 @@ class FavouriteFragment : Fragment() {
                     is DataState.Success -> {
                         tvAdapter.submitData(lifecycle, it.data)
                     }
-                    is DataState.Error->{
+                    is DataState.Error -> {
                         //Temporary do nothing
-                    }                }
+                    }
+                }
             })
     }
 }
