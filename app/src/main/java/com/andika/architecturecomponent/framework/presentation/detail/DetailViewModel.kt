@@ -20,9 +20,8 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
-
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
