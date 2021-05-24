@@ -20,7 +20,7 @@ import com.andika.architecturecomponent.core.di.FavouriteModule
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
 import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
-import com.andika.architecturecomponent.databinding.FragmentFavouriteBinding
+import com.andika.architecturecomponent.favourite.databinding.FragmentFavouriteBinding
 import com.andika.architecturecomponent.favourite.di.DaggerFavouriteComponent
 import com.andika.architecturecomponent.framework.presentation.detail.DetailActivity
 import dagger.hilt.android.EntryPointAccessors
@@ -76,11 +76,11 @@ class FavouriteFragment : Fragment() {
             }
 
         }
-        binding.rvFavoriteMovie.run {
+        binding.rvFavouriteMovie.run {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-        binding.rvFavoriteTv.run {
+        binding.rvFavouriteTv.run {
             adapter = tvAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -94,18 +94,18 @@ class FavouriteFragment : Fragment() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favoriteMovieEmpty.gone()
+                    binding.favouriteMovieEmpty.gone()
                 } else {
-                    binding.favoriteMovieEmpty.visible()
+                    binding.favouriteMovieEmpty.visible()
                 }
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 super.onItemRangeRemoved(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favoriteMovieEmpty.gone()
+                    binding.favouriteMovieEmpty.gone()
                 } else {
-                    binding.favoriteMovieEmpty.visible()
+                    binding.favouriteMovieEmpty.visible()
                 }
             }
 
@@ -114,26 +114,26 @@ class FavouriteFragment : Fragment() {
             RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (itemCount > 0) {
-                    binding.favoriteTvEmpty.gone()
+                    binding.favouriteTvEmpty.gone()
                 } else {
-                    binding.favoriteTvEmpty.visible()
+                    binding.favouriteTvEmpty.visible()
                 }
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 super.onItemRangeRemoved(positionStart, itemCount)
                 if (itemCount > 0) {
-                    binding.favoriteTvEmpty.gone()
+                    binding.favouriteTvEmpty.gone()
                 } else {
-                    binding.favoriteTvEmpty.visible()
+                    binding.favouriteTvEmpty.visible()
                 }
             }
         })
         favouriteViewModel.favouriteMovies.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Loading -> {
-                    binding.favoriteTvEmpty.gone()
-                    binding.favoriteMovieEmpty.gone()
+                    binding.favouriteTvEmpty.gone()
+                    binding.favouriteMovieEmpty.gone()
                 }
                 is DataState.Success -> {
                     movieAdapter.submitData(lifecycle, it.data)
@@ -148,8 +148,8 @@ class FavouriteFragment : Fragment() {
             {
                 when (it) {
                     is DataState.Loading -> {
-                        binding.favoriteTvEmpty.gone()
-                        binding.titleFavoritMovie.gone()
+                        binding.favouriteTvEmpty.gone()
+                        binding.titleFavouriteMovie.gone()
                     }
                     is DataState.Success -> {
                         tvAdapter.submitData(lifecycle, it.data)

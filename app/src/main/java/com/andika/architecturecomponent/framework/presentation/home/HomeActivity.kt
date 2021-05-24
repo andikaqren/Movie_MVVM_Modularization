@@ -1,11 +1,14 @@
 package com.andika.architecturecomponent.framework.presentation.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.andika.architecturecomponent.R
 import com.andika.architecturecomponent.databinding.ActivityMainBinding
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -17,19 +20,38 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val navController = findNavController(R.id.nav_host_fragment)
-        binding.navView.setupWithNavController(navController)
-  /*      binding.navView.setOnNavigationItemSelectedListener {
-            if (it.itemId == R.id.favouriteFragment) {
-                installChatModule()
+        initView()
+
+    }
+
+    private fun initView(){
+        binding.navView.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.favouriteFragment-> {
+                    installChatModule()
+                }
+                R.id.tvFragment->{
+                    binding.navHostFragment.findNavController().navigate(R.id.tvFragment)
+                }
+                R.id.movieFragment->{
+                    binding.navHostFragment.findNavController().navigate(R.id.movieFragment)
+                }
+
             }
-            true
-
-        }*/
-
+            false
+        }
     }
-
     private fun installChatModule() {
-
+        val splitInstallManager = SplitInstallManagerFactory.create(this)
+        val moduleFav = "favourite"
+        if (splitInstallManager.installedModules.contains(moduleFav)) {
+            binding.navHostFragment.findNavController().navigate(R.id.favouriteFragment)
+        } else {
+            val request = SplitInstallRequest.newBuilder()
+                .addModule(moduleFav)
+                .build()
+            splitInstallManager.startInstall(request)
+        }
     }
+
 }
