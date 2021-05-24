@@ -5,10 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.andika.architecturecomponent.business.domain.utils.toLocalMovieList
 import com.andika.architecturecomponent.business.domain.utils.toLocalTVList
-import com.andika.architecturecomponent.core.business.data.remote.model.*
-import com.andika.architecturecomponent.core.business.data.local.model.*
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
-import com.andika.architecturecomponent.core.business.domain.model.*
+import com.andika.architecturecomponent.core.business.data.remote.model.*
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.PAGE_SIZE
 import com.andika.architecturecomponent.core.business.network.pagingsource.MoviePagingSource
 import com.andika.architecturecomponent.core.business.network.pagingsource.TVPagingSource

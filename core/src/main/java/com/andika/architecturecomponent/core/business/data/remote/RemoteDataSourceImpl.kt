@@ -14,6 +14,7 @@ constructor(
     override suspend fun getDetailMovie(id: String): RemoteMovie {
         return networkManagerService.getDetailMovie(id)
     }
+
     override suspend fun getSimilar(filename: Int?): RemoteMovies {
         return networkManagerService.getSimilar(filename)
     }

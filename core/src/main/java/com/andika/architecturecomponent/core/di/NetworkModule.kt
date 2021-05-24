@@ -36,7 +36,6 @@ object NetworkModule {
     }
 
 
-
     @Provides
     @Singleton
     fun providesOkHttp3LoggingInterceptor(): HttpLoggingInterceptor {
@@ -56,7 +55,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun getRetrofit( client: OkHttpClient,gson: Gson): NetworkManager {
+    fun getRetrofit(client: OkHttpClient, gson: Gson): NetworkManager {
         val retrofit = Retrofit.Builder()
             .baseUrl(AppConstant.baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))

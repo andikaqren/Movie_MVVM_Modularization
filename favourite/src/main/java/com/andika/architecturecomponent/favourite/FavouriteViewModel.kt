@@ -1,6 +1,5 @@
 package com.andika.architecturecomponent.favourite
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,14 +15,14 @@ import kotlinx.coroutines.launch
 
 
 class FavouriteViewModel : ViewModel() {
-    private lateinit var interactors:MovieInteractors
+    private lateinit var interactors: MovieInteractors
     var movieJob: Job? = null
     var tvJob: Job? = null
     var favouriteMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
     var favouriteTV: MutableLiveData<DataState<PagingData<TV>>> = MutableLiveData()
 
 
-    fun setApi(interactors: MovieInteractors){
+    fun setApi(interactors: MovieInteractors) {
         this.interactors = interactors
     }
 

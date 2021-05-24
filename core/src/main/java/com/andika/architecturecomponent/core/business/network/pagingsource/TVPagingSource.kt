@@ -30,7 +30,9 @@ class TVPagingSource(
                 position + 1
             }
             LoadResult.Page(
-                data = com.andika.architecturecomponent.core.business.domain.utils.DataMapper.listRemoteTVToTV(response.results),
+                data = com.andika.architecturecomponent.core.business.domain.utils.DataMapper.listRemoteTVToTV(
+                    response.results
+                ),
                 prevKey = if (position == TV_STARTING_PAGE_INDEX) null else position - 1,
                 nextKey = nextKey
             )

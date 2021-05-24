@@ -11,10 +11,10 @@ import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
 interface LocalDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSelectedMovie(movie:LocalMovie): Long
+    suspend fun insertSelectedMovie(movie: LocalMovie): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSelectedTV(movie:LocalTV): Long
+    suspend fun insertSelectedTV(movie: LocalTV): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     @JvmSuppressWildcards
@@ -24,22 +24,22 @@ interface LocalDao {
     fun deleteGenre()
 
     @Delete()
-    fun deleteMovie(movie:LocalMovie)
+    fun deleteMovie(movie: LocalMovie)
 
     @Delete()
-    fun deleteTV(movie:LocalTV)
+    fun deleteTV(movie: LocalTV)
 
     @Query("SELECT * FROM MOVIE WHERE id = :id")
-    fun getSelectedMovie(id: Int):LocalMovie
+    fun getSelectedMovie(id: Int): LocalMovie
 
     @Query("SELECT * FROM TV WHERE id = :id")
-    fun getSelectedTV(id: Int):LocalTV
+    fun getSelectedTV(id: Int): LocalTV
 
     @Query("SELECT * FROM MOVIE")
-    fun getAllFavouriteMovie(): PagingSource<Int,LocalMovie>
+    fun getAllFavouriteMovie(): PagingSource<Int, LocalMovie>
 
     @Query("SELECT * FROM TV")
-    fun getAllFavouriteTV(): PagingSource<Int,LocalTV>
+    fun getAllFavouriteTV(): PagingSource<Int, LocalTV>
 
     @Query("SELECT * FROM Genre")
     fun getGenres(): List<LocalGenre>

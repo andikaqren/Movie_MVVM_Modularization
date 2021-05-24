@@ -1,4 +1,5 @@
 package com.andika.architecturecomponent.core.business.network
+
 import com.andika.architecturecomponent.core.business.data.remote.model.*
 
 interface NetworkManagerService {

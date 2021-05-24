@@ -26,6 +26,7 @@ fun LocalMovie.toMovie(): RemoteMovie = RemoteMovie(
     vote_average = vote_average,
     vote_count = vote_count
 )
+
 fun List<RemoteMovie>.toLocalMovieList(): List<LocalMovie> {
     val localMovies = mutableListOf<LocalMovie>()
     for (movie in this) {

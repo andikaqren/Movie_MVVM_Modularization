@@ -1,7 +1,11 @@
 package com.andika.architecturecomponent.core.business.domain.utils
 
-import com.andika.architecturecomponent.core.business.data.remote.model.*
-import com.andika.architecturecomponent.core.business.data.local.model.*
+import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
+import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovie
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteMovies
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTV
+import com.andika.architecturecomponent.core.business.data.remote.model.RemoteTVs
 import com.andika.architecturecomponent.core.business.domain.model.*
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.UNKNOWN
 
