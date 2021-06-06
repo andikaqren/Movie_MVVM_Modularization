@@ -91,34 +91,34 @@ class DetailViewModel
         }
     }
 
-    private suspend  fun getSimilarTV(filename: Int) {
+    private suspend fun getSimilarTV(filename: Int) {
         interactors.getSimilarTV(filename).collect {
             _similarTV.postValue(it)
         }
     }
 
 
-    private suspend  fun getSelectedTV(filename: Int) {
+    private suspend fun getSelectedTV(filename: Int) {
         interactors.getSelectedTV(filename).collect {
             _favTV.postValue(it)
         }
     }
 
 
-    private  suspend  fun getRecomendationMovie(filename: Int) {
+    private suspend fun getRecomendationMovie(filename: Int) {
         interactors.getRecomendation(filename).collect {
             _recomendationMovies.postValue(it)
         }
     }
 
-    private  suspend  fun getSimilarMovie(filename: Int) {
+    private suspend fun getSimilarMovie(filename: Int) {
         interactors.getSimilar(filename).collect {
             _similarMovies.postValue(it)
         }
     }
 
 
-    private suspend   fun getSelectedMovie(filename: Int) {
+    private suspend fun getSelectedMovie(filename: Int) {
         interactors.getSelectedMovie(filename).collect {
             _favMovie.postValue(it)
         }

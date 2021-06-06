@@ -15,7 +15,6 @@ class TVPagingAdapter :
     ) {
 
 
-
     inner class ViewHolder(listener: ItemClickListener<TV>, view: ProductBinding) :
         BaseHolder<TV>(listener, view.root) {
         val bind = view

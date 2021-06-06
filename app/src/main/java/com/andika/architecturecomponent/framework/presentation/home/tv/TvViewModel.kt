@@ -53,7 +53,7 @@ class TvViewModel
         }
     }
 
-    private  suspend fun getPopularTV() {
+    private suspend fun getPopularTV() {
         interactors.getPopularTv(viewModelScope).collect {
             _popularTV.postValue(it)
         }

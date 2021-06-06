@@ -53,8 +53,8 @@ class HomeActivity : AppCompatActivity() {
                     .build()
                 splitInstallManager.startInstall(request)
             }
-        }catch (e:Exception){
-            Toast.makeText(applicationContext,e.toString(),Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
         }
     }
 

@@ -144,9 +144,10 @@ class FavouriteFragment : Fragment() {
                 }
             })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.rvFavouriteTv.adapter= null
+        binding.rvFavouriteTv.adapter = null
         binding.rvFavouriteMovie.adapter = null
         _binding = null
     }

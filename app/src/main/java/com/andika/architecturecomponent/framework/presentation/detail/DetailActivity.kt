@@ -272,18 +272,18 @@ class DetailActivity : AppCompatActivity() {
                 is DataState.Success -> {
                     showBottomSheet(it.data)
                 }
-                is DataState.Error->{
+                is DataState.Error -> {
                     showToast(it.exception.toString())
                 }
-                is DataState.Loading->{
+                is DataState.Loading -> {
                     showLoading()
                 }
             }
         })
     }
 
-    private fun showToast(msg:String){
-        Toast.makeText(applicationContext,msg,Toast.LENGTH_LONG).show()
+    private fun showToast(msg: String) {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_LONG).show()
     }
 
 

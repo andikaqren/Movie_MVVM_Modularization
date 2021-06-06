@@ -67,13 +67,13 @@ class MovieViewModel
         }
     }
 
-    private  suspend fun getNowPlayingMovies() {
+    private suspend fun getNowPlayingMovies() {
         interactors.getNowPlaying(viewModelScope).collect {
             _nowPlayingMovies.postValue(it)
         }
     }
 
-    private   suspend fun getUpcomingMovies() {
+    private suspend fun getUpcomingMovies() {
         interactors.getUpcoming(viewModelScope).collect {
             _upcomingMovies.postValue(it)
         }

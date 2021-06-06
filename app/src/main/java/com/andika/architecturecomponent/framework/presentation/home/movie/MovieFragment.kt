@@ -176,7 +176,7 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
     override fun onDestroyView() {
         super.onDestroyView()
         binding.homeVp.adapter = null
-        binding.container.rvNowPlaying.adapter= null
+        binding.container.rvNowPlaying.adapter = null
         binding.container.rvPopular.adapter = null
         binding.container.rvUpcoming.adapter = null
         _binding = null
