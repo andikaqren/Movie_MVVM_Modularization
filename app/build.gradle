@@ -9,6 +9,20 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 android {
 
+    signingConfigs {
+        debug {
+            storeFile file("../movieexpert.jks")
+            storePassword '123456'
+            keyAlias 'andika'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file("../movieexpert.jks")
+            storePassword '123456'
+            keyAlias 'andika'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -22,6 +36,8 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+
     }
 
     buildTypes {
