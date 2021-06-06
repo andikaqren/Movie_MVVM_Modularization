@@ -14,12 +14,6 @@ abstract class BaseAdapter<S, T : BaseHolder<S>> : RecyclerView.Adapter<T>() {
         bindViewHolder(holder, data, position)
     }
 
-    private fun add(data: S?) {
-        data?.let {
-            list.add(it)
-            notifyItemInserted(list.size)
-        }
-    }
 
     private fun clear() {
         list.clear()

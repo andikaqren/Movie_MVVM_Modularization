@@ -5,6 +5,11 @@ import com.andika.architecturecomponent.core.BuildConfig
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSourceImpl
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.DEEPLINKURL
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.baseDomain
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.deepLinkDomain
+import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.posterDomain
 import com.andika.architecturecomponent.core.business.network.NetworkManager
 import com.andika.architecturecomponent.core.business.network.NetworkManagerService
 import com.andika.architecturecomponent.core.business.network.NetworkManagerServiceImpl
@@ -14,6 +19,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,7 +32,6 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
-
     @Singleton
     @Provides
     fun provideGsonBuilder(): Gson {
@@ -34,6 +39,15 @@ object NetworkModule {
             .create()
     }
 
+    @Singleton
+    @Provides
+    fun provideCertificatePinner(): CertificatePinner {
+        return CertificatePinner.Builder()
+            .add(baseDomain, "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+            .add(deepLinkDomain, "sha256/P4c/fova2loNyah+FHGVbPpPRirbcJrvPFwrIcauQWk=")
+            .add(posterDomain, "sha256/dkkdrQXG/soxr05PnqVNAas2Cl7nDyOp2iRkEHQ+wk0=")
+            .build()
+    }
 
     @Provides
     @Singleton
@@ -45,9 +59,13 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttp(interceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttp(
+        interceptor: HttpLoggingInterceptor,
+        certificatePinner: CertificatePinner
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .certificatePinner(certificatePinner)
             .build()
 
     }

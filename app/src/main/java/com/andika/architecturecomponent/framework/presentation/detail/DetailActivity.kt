@@ -13,8 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andika.architecturecomponent.R
-import com.andika.architecturecomponent.business.domain.utils.gone
-import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
@@ -25,6 +23,8 @@ import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.M
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TYPE
+import com.andika.architecturecomponent.core.business.domain.utils.gone
+import com.andika.architecturecomponent.core.business.domain.utils.visible
 import com.andika.architecturecomponent.core.ui.adapter.MovieAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVAdapter
 import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
@@ -361,12 +361,12 @@ class DetailActivity : AppCompatActivity() {
                 binding.itemDetail.detailRecomendationRv.run {
                     adapter = recomendationAdapter
                     layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
                 binding.itemDetail.detailSimiliarRv.run {
                     adapter = similarAdapter
                     layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
                 similarAdapter.listener = object : ItemClickListener<Movie> {
                     override fun itemClick(position: Int, item: Movie?, view: Int) {

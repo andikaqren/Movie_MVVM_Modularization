@@ -23,10 +23,10 @@ interface LocalDao {
     @Query("DELETE FROM GENRE")
     fun deleteGenre()
 
-    @Delete()
+    @Delete
     fun deleteMovie(movie: LocalMovie)
 
-    @Delete()
+    @Delete
     fun deleteTV(movie: LocalTV)
 
     @Query("SELECT * FROM MOVIE WHERE id = :id")

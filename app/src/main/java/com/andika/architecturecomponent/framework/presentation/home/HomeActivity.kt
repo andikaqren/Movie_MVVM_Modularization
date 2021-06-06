@@ -1,6 +1,7 @@
 package com.andika.architecturecomponent.framework.presentation.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.andika.architecturecomponent.R
@@ -41,15 +42,19 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun installChatModule() {
-        val splitInstallManager = SplitInstallManagerFactory.create(this)
-        val moduleFav = "favourite"
-        if (splitInstallManager.installedModules.contains(moduleFav)) {
-            binding.navHostFragment.findNavController().navigate(R.id.favouriteFragment)
-        } else {
-            val request = SplitInstallRequest.newBuilder()
-                .addModule(moduleFav)
-                .build()
-            splitInstallManager.startInstall(request)
+        try {
+            val splitInstallManager = SplitInstallManagerFactory.create(this)
+            val moduleFav = "favourite"
+            if (splitInstallManager.installedModules.contains(moduleFav)) {
+                binding.navHostFragment.findNavController().navigate(R.id.favouriteFragment)
+            } else {
+                val request = SplitInstallRequest.newBuilder()
+                    .addModule(moduleFav)
+                    .build()
+                splitInstallManager.startInstall(request)
+            }
+        }catch (e:Exception){
+            Toast.makeText(applicationContext,e.toString(),Toast.LENGTH_LONG).show()
         }
     }
 

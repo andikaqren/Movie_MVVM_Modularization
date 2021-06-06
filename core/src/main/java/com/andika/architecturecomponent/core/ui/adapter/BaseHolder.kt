@@ -5,17 +5,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
 
 abstract class BaseHolder<T>(
-    listener: ItemClickListener<T>,
+    private val listener: ItemClickListener<T>,
     itemView: View
 ) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    private val listener: ItemClickListener<T>
-    var itemPosition = 0
-        private set
+    private var itemPosition = 0
     var itemData: T? = null
-        private set
-    var itemSelected = 0
-        private set
+    private var itemSelected = 0
+
 
     override fun onClick(v: View?) {
         itemSelected = itemPosition
@@ -25,10 +22,7 @@ abstract class BaseHolder<T>(
     fun bindData(position: Int, data: T?) {
         itemPosition = position
         itemData = data
+        itemView.setOnClickListener(this)
     }
 
-    init {
-        this.listener = listener
-        itemView.setOnClickListener(listener)
-    }
 }

@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.andika.architecturecomponent.business.domain.utils.gone
-import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
+import com.andika.architecturecomponent.core.business.domain.utils.gone
+import com.andika.architecturecomponent.core.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.di.FavouriteModule
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter

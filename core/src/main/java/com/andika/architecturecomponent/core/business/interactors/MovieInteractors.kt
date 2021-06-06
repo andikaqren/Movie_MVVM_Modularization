@@ -50,8 +50,7 @@ constructor(
             emit(DataState.Loading)
             EspressoIdlingResource.increment()
             try {
-                localDataSource.getAllFavMovies().cachedIn(scope).collect {
-                    val data = it
+                localDataSource.getAllFavMovies().cachedIn(scope).collect { data ->
                     emit(DataState.Success(data.map { DataMapper.localMovieToMovie(it) }))
                     EspressoIdlingResource.decrement()
                 }
@@ -65,8 +64,7 @@ constructor(
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
-            localDataSource.getAllFavTV().cachedIn(scope).collect {
-                val data = it
+            localDataSource.getAllFavTV().cachedIn(scope).collect { data ->
                 emit(DataState.Success(data.map { DataMapper.localTVToTV(it) }))
                 EspressoIdlingResource.decrement()
             }
