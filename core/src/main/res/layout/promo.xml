@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardView.HomeTopProduct"
+
     android:layout_width="match_parent"
-    android:layout_height="@dimen/promo_height">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/item_home_promo_iv"

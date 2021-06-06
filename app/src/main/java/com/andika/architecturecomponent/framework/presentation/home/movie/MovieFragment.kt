@@ -1,7 +1,6 @@
 package com.andika.architecturecomponent.framework.presentation.home.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -172,5 +171,14 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
             DetailActivity.start(requireContext(), MOVIE, it)
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.homeVp.adapter = null
+        binding.container.rvNowPlaying.adapter= null
+        binding.container.rvPopular.adapter = null
+        binding.container.rvUpcoming.adapter = null
+        _binding = null
     }
 }

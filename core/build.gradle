@@ -34,7 +34,7 @@ android {
             buildConfigField "String", "MOVIE_DB_KEY", '"6cec76c7551f93b96434affae74479ba"'
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org/3/"'
             buildConfigField "String", "SERVER_IMAGE_URL", '"https://image.tmdb.org/t/p/w500"'
