@@ -7,7 +7,6 @@ object AppConstant {
     const val baseUrl = BuildConfig.SERVER_URL
     const val movieDBKEY = BuildConfig.MOVIE_DB_KEY
     const val TABLE_GENRE = "Genre"
-    const val TABLE_Movie = "Movie"
     const val MOVIE = "MOVIE"
     const val TYPE = "type"
     const val TV = "TV"

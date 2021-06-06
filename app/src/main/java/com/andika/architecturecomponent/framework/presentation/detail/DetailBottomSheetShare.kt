@@ -14,14 +14,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DetailBottomSheetShare : BottomSheetDialogFragment() {
 
-    lateinit var binding: DetailBottomShareBinding
+    private var _binding: DetailBottomShareBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var link: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DetailBottomShareBinding.inflate(inflater)
+        _binding = DetailBottomShareBinding.inflate(inflater)
         return binding.root
     }
 

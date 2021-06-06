@@ -19,7 +19,4 @@ object EspressoIdlingResource {
         }
     }
 
-    fun getEspressoIdlingResource(): IdlingResource {
-        return espressoTestIdlingResource
-    }
 }

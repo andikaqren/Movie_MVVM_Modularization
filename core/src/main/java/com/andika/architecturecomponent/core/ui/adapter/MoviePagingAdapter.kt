@@ -15,21 +15,6 @@ class MoviePagingAdapter :
         DIFF_CALLBACK
     ) {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem.id == newItem.id
-
-            }
-
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
-
-        }
-    }
-
-
     inner class ViewHolder(listener: ItemClickListener<Movie>, view: ProductBinding) :
         BaseHolder<Movie>(listener, view.root) {
         val bind = view
@@ -64,6 +49,20 @@ class MoviePagingAdapter :
 
     override fun bindViewHolder(holder: ViewHolder?, data: Movie?, position: Int) {
         holder?.bind()
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
 

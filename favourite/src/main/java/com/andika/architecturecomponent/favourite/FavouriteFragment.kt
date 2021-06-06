@@ -36,12 +36,14 @@ class FavouriteFragment : Fragment() {
     private var movieAdapter = MoviePagingAdapter()
     private var tvAdapter = TVPagingAdapter()
     private val favouriteViewModel: FavouriteViewModel by viewModels()
-    private lateinit var binding: FragmentFavouriteBinding
+
+    private var _binding: FragmentFavouriteBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouriteBinding.inflate(inflater)
+        _binding = FragmentFavouriteBinding.inflate(inflater)
         return binding.root
     }
 

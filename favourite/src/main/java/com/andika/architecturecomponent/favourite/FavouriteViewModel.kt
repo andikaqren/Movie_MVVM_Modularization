@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 
 class FavouriteViewModel : ViewModel() {
     private lateinit var interactors: MovieInteractors
-    var movieJob: Job? = null
-    var tvJob: Job? = null
+    private var movieJob: Job? = null
+    private var tvJob: Job? = null
     var favouriteMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
     var favouriteTV: MutableLiveData<DataState<PagingData<TV>>> = MutableLiveData()
 
@@ -38,13 +38,13 @@ class FavouriteViewModel : ViewModel() {
 
     }
 
-    suspend fun getFavTV() {
+    private suspend fun getFavTV() {
         interactors.getAllFavouriteTV(viewModelScope).collect {
             favouriteTV.postValue(it)
         }
     }
 
-    suspend fun getFavMovie() {
+    private suspend fun getFavMovie() {
         interactors.getAllFavouriteMovie(viewModelScope).collect {
             favouriteMovies.postValue(it)
         }

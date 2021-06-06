@@ -28,7 +28,7 @@ class MovieViewModel
     private var _topMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
     private var _nowPlayingMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
     private var _popularMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
-    var _upcomingMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
+    private var _upcomingMovies: MutableLiveData<DataState<PagingData<Movie>>> = MutableLiveData()
     var topMovies: LiveData<DataState<Movies>> = _topMovies
     var popularMovies: LiveData<DataState<PagingData<Movie>>> = _popularMovies
     var nowPlayingMovies: LiveData<DataState<PagingData<Movie>>> = _nowPlayingMovies
@@ -55,25 +55,25 @@ class MovieViewModel
 
     }
 
-    suspend fun getTopMovies() {
+    private suspend fun getTopMovies() {
         interactors.getTopMovies().collect {
             _topMovies.postValue(it)
         }
     }
 
-    suspend fun getPopularMovies() {
+    private suspend fun getPopularMovies() {
         interactors.getPopular(viewModelScope).collect {
             _popularMovies.postValue(it)
         }
     }
 
-    suspend fun getNowPlayingMovies() {
+    private  suspend fun getNowPlayingMovies() {
         interactors.getNowPlaying(viewModelScope).collect {
             _nowPlayingMovies.postValue(it)
         }
     }
 
-    suspend fun getUpcomingMovies() {
+    private   suspend fun getUpcomingMovies() {
         interactors.getUpcoming(viewModelScope).collect {
             _upcomingMovies.postValue(it)
         }

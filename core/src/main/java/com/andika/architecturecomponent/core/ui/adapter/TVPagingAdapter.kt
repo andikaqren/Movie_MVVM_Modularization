@@ -14,18 +14,7 @@ class TVPagingAdapter :
         DIFF_CALLBACK
     ) {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TV>() {
-            override fun areItemsTheSame(oldItem: TV, newItem: TV): Boolean {
-                return oldItem.id == newItem.id
 
-            }
-
-            override fun areContentsTheSame(oldItem: TV, newItem: TV): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
 
     inner class ViewHolder(listener: ItemClickListener<TV>, view: ProductBinding) :
         BaseHolder<TV>(listener, view.root) {
@@ -58,6 +47,19 @@ class TVPagingAdapter :
 
     override fun bindViewHolder(holder: ViewHolder?, data: TV?, position: Int) {
         holder?.bind()
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TV>() {
+            override fun areItemsTheSame(oldItem: TV, newItem: TV): Boolean {
+                return oldItem.id == newItem.id
+
+            }
+
+            override fun areContentsTheSame(oldItem: TV, newItem: TV): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
 }

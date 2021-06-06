@@ -29,6 +29,6 @@ abstract class BaseHolder<T>(
 
     init {
         this.listener = listener
-        itemView.setOnClickListener(this)
+        itemView.setOnClickListener(listener)
     }
 }

@@ -151,4 +151,8 @@
 
 
     </style>
+
+    <style name="MyTheme" parent="@android:style/Theme.Holo">
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
 </resources>

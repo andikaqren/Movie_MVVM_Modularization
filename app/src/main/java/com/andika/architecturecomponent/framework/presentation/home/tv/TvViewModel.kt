@@ -47,19 +47,19 @@ class TvViewModel
     }
 
 
-    suspend fun getTopRatedTV() {
+    private suspend fun getTopRatedTV() {
         interactors.getTopRatedTv().collect {
             _topTV.postValue(it)
         }
     }
 
-    suspend fun getPopularTV() {
+    private  suspend fun getPopularTV() {
         interactors.getPopularTv(viewModelScope).collect {
             _popularTV.postValue(it)
         }
     }
 
-    suspend fun getLatestTV() {
+    private suspend fun getLatestTV() {
         interactors.getLatestTV(viewModelScope).collect {
             _latestTV.postValue(it)
         }

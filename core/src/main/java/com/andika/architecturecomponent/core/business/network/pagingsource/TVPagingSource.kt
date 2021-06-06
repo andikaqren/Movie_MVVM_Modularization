@@ -15,9 +15,9 @@ class TVPagingSource(
     private val service: RemoteDataSource,
     private val query: String
 ) : PagingSource<Int, TV>() {
-    private val TV_STARTING_PAGE_INDEX = 1
+    private val startingIndex = 1
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TV> {
-        val position = params.key ?: TV_STARTING_PAGE_INDEX
+        val position = params.key ?: startingIndex
         return try {
             val response: RemoteTVs = when (query) {
                 POPULAR_TV -> service.getPopularTV(position)
@@ -33,7 +33,7 @@ class TVPagingSource(
                 data = com.andika.architecturecomponent.core.business.domain.utils.DataMapper.listRemoteTVToTV(
                     response.results
                 ),
-                prevKey = if (position == TV_STARTING_PAGE_INDEX) null else position - 1,
+                prevKey = if (position == startingIndex) null else position - 1,
                 nextKey = nextKey
             )
         } catch (exception: IOException) {

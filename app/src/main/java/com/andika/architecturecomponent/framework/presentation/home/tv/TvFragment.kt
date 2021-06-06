@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.andika.architecturecomponent.business.domain.utils.gone
-import com.andika.architecturecomponent.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
+import com.andika.architecturecomponent.core.business.domain.utils.gone
+import com.andika.architecturecomponent.core.business.domain.utils.visible
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TvPagerAdapter
 import com.andika.architecturecomponent.core.ui.listener.ItemClickListener
@@ -26,7 +26,8 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class TvFragment : Fragment(), ItemClickListener<TV> {
-    private lateinit var binding: FragmentTvBinding
+    private var _binding: FragmentTvBinding? = null
+    private val binding get() = _binding!!
     private lateinit var latestJob: Job
     private lateinit var popularJob: Job
     private lateinit var topJob: Job
@@ -39,7 +40,7 @@ class TvFragment : Fragment(), ItemClickListener<TV> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTvBinding.inflate(layoutInflater)
+        _binding = FragmentTvBinding.inflate(layoutInflater)
         return binding.root
 
     }

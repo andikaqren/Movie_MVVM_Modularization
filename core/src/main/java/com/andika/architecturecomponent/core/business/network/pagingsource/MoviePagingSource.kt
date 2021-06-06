@@ -17,9 +17,9 @@ class MoviePagingSource(
     private val service: RemoteDataSource,
     private val query: String
 ) : PagingSource<Int, Movie>() {
-    private val MOVIE_STARTING_PAGE_INDEX = 1
+    private val startingIndex = 1
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-        val position = params.key ?: MOVIE_STARTING_PAGE_INDEX
+        val position = params.key ?: startingIndex
         return try {
             val response: RemoteMovies = when (query) {
                 UPCOMING_MOVIES -> service.getUpcoming(position)
@@ -34,7 +34,7 @@ class MoviePagingSource(
             }
             LoadResult.Page(
                 data = DataMapper.listRemoteMovieToMovie(response.results),
-                prevKey = if (position == MOVIE_STARTING_PAGE_INDEX) null else position - 1,
+                prevKey = if (position == startingIndex) null else position - 1,
                 nextKey = nextKey
             )
         } catch (exception: IOException) {

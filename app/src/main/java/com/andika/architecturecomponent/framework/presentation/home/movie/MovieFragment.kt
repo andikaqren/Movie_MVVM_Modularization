@@ -51,7 +51,7 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
         viewModel.reloadData()
     }
 
-    fun initView() {
+    private fun initView() {
         binding.container.rvUpcoming.run {
             adapter = upcomingAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -73,7 +73,7 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
 
     }
 
-    fun initObserver() {
+    private fun initObserver() {
         viewModel.nowPlayingMovies.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Loading -> {

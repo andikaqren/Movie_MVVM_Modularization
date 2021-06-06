@@ -21,21 +21,6 @@ abstract class BaseAdapter<S, T : BaseHolder<S>> : RecyclerView.Adapter<T>() {
         }
     }
 
-    private fun replace(data: S?, index: Int) {
-        data?.let {
-            list[index] = it
-        }
-    }
-
-    private fun addAll(list: MutableList<S>?) {
-        list?.let {
-            for (item in it) {
-                add(item)
-            }
-        }
-
-    }
-
     private fun clear() {
         list.clear()
         notifyDataSetChanged()

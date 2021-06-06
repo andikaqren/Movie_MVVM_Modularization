@@ -26,7 +26,6 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
-    private const val TIMEOUT: Long = 5
 
     @Singleton
     @Provides
