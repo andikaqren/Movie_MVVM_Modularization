@@ -30,14 +30,6 @@
 
             />
 
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            android:id="@+id/intro_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/mini_medium_margin"
-            android:layout_marginBottom="@dimen/mini_medium_margin"
-            app:dotsColor="@color/white"
-            app:dotsSize="@dimen/mid_margin" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <include

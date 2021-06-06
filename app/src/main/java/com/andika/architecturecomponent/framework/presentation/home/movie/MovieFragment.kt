@@ -23,7 +23,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MovieFragment : Fragment(), ItemClickListener<Movie> {
-    private lateinit var binding: FragmentMoviesBinding
+    private var _binding: FragmentMoviesBinding? = null
+    private val binding get() = _binding!!
     private var nowPlayingAdapter = MoviePagingAdapter()
     private var popularAdapter = MoviePagingAdapter()
     private var upcomingAdapter = MoviePagingAdapter()
@@ -34,7 +35,7 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMoviesBinding.inflate(layoutInflater)
+        _binding = FragmentMoviesBinding.inflate(layoutInflater)
         return binding.root
 
     }
@@ -68,7 +69,6 @@ class MovieFragment : Fragment(), ItemClickListener<Movie> {
         nowPlayingAdapter.listener = this
         topRatedAdapter.listener = this
         binding.homeVp.adapter = topRatedAdapter
-        binding.introIndicator.setViewPager(binding.homeVp)
 
 
     }

@@ -26,7 +26,6 @@
     //paging
     implementation 'androidx.paging:paging-runtime:3.0.0'
     //imageloader
-    implementation "com.elyeproj.libraries:loaderviewlibrary:$loaderView_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
      //layout
     implementation "androidx.appcompat:appcompat:$appCompat_version"
@@ -38,7 +37,6 @@
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
     implementation "io.supercharge:shimmerlayout:$shimmer_layout"
-    implementation "com.tbuonomo.andrui:viewpagerdotsindicator:$viewpager_dots_indicator"
 
 
 }

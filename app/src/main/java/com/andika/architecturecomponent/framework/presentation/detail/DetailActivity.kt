@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -131,7 +132,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-
+        //temporary do nothing
     }
 
     private fun observeView() {
@@ -271,8 +272,18 @@ class DetailActivity : AppCompatActivity() {
                 is DataState.Success -> {
                     showBottomSheet(it.data)
                 }
+                is DataState.Error->{
+                    showToast(it.exception.toString())
+                }
+                is DataState.Loading->{
+                    showLoading()
+                }
             }
         })
+    }
+
+    private fun showToast(msg:String){
+        Toast.makeText(applicationContext,msg,Toast.LENGTH_LONG).show()
     }
 
 

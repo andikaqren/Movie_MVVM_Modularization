@@ -74,7 +74,6 @@ class TvFragment : Fragment(), ItemClickListener<TV> {
         popularAdapter.listener = this
         latestAdapter.listener = this
         binding.homeVp.adapter = topRatedAdapter
-        binding.introIndicator.setViewPager(binding.homeVp)
 
 
     }
