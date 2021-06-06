@@ -40,7 +40,7 @@ android {
 
 dependencies {
     //core
-    implementation project(":core")
+    api project(":core")
     //main
-    implementation project(":app")
+    api project(":app")
 }
