@@ -5,8 +5,6 @@ import com.andika.architecturecomponent.core.BuildConfig
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSourceImpl
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.DEEPLINKURL
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POSTER_URL_500
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.baseDomain
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.deepLinkDomain
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.posterDomain
