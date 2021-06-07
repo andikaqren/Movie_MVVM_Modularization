@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_product"
-    style="@style/CardView.HomeProduct"
-    android:visibility="gone">
+    style="@style/CosntraintLayout.HomeProduct">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            style="@style/ImageView.HomePoster"
-            android:contentDescription="@string/video_not_found"
-            android:src="@drawable/videonotfound" />
-
-        <TextView
-            style="@style/TextView.HomeDetailProduct"
-            android:text="@string/no_movies" />
+    <ImageView
+        android:id="@+id/movies_mini_poster"
+        style="@style/ImageView.HomePoster"
+        android:src="@drawable/videonotfound"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/image_cover" />
 
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/product_movies_title"
+        style="@style/TextView.HomeDetailProduct"
+        android:text="@string/no_movies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movies_mini_poster"
+        app:layout_constraintVertical_bias="0.0" />
 
 
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/RatingBar"
+        app:layout_constraintEnd_toEndOf="@id/product_movies_title"
+        app:layout_constraintStart_toStartOf="@id/product_movies_title"
+        app:layout_constraintTop_toBottomOf="@id/product_movies_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

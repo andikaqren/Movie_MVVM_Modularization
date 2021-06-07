@@ -6,12 +6,11 @@
     android:layout_height="wrap_content">
 
     <io.supercharge.shimmerlayout.ShimmerLayout
-        android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
+        android:id="@+id/shimmer_layout"
         android:layout_height="@dimen/promo_height">
 
         <ImageView
-            android:id="@+id/item_home_promo_iv"
             style="@style/ImageView.HomeTopPoster"
             android:contentDescription="@string/image_cover"
             android:src="@drawable/logomovie" />

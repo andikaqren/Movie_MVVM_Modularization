@@ -17,7 +17,7 @@ class MoviePagingAdapter :
 
     inner class ViewHolder(listener: ItemClickListener<Movie>, view: ProductBinding) :
         BaseHolder<Movie>(listener, view.root) {
-        val bind = view
+        private val bind = view
         fun bind() = with(itemView) {
             itemData?.let {
                 val linkPoster =

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/detail_frame_height"
-    android:background="@color/colorPrimaryDark">
+    style="@style/MyTheme">
 
     <ImageView
         android:id="@+id/iv_detail_frame_cover"

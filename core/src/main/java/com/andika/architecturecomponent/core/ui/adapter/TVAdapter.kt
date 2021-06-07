@@ -14,7 +14,7 @@ class TVAdapter :
     BaseAdapter<TV, TVAdapter.ViewHolder>() {
     inner class ViewHolder(listener: ItemClickListener<TV>, view: ProductBinding) :
         BaseHolder<TV>(listener, view.root) {
-        val bind = view
+        private val bind = view
         fun bind() = with(itemView) {
             itemData?.let {
                 val linkPoster =

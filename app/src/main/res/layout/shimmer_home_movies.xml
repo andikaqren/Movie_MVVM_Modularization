@@ -1,57 +1,29 @@
 <io.supercharge.shimmerlayout.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
     android:id="@+id/shimmer_layout"
     android:layout_width="@dimen/movies_size_bonus"
-    android:layout_height="@dimen/movies_size_bonus"
-    android:layout_gravity="center"
-    android:layout_margin="@dimen/mini_margin"
-    android:gravity="center"
-    android:padding="@dimen/mini_margin">
+    android:layout_height="@dimen/movies_size_bonus">
 
-    <com.google.android.material.card.MaterialCardView
-        style="@style/CardView.HomeProduct"
-        android:layout_width="@dimen/movies_size"
-        android:layout_height="@dimen/movies_size">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/movies_size_small"
-                android:background="@color/colorPrimary"
-                android:contentDescription="@string/video_not_found" />
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-
-                    android:background="@color/colorPrimary"
-                    android:ellipsize="end"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:gravity="center"
-                    android:maxLength="30"
-                    android:text="@string/loading"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/CosntraintLayout.HomeProduct"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/mini_margin"
+        android:padding="@dimen/mini_margin"
+        android:background="@drawable/gradient_background"
+        >
 
 
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            style="@style/TextView.HomeTitleProduct"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </io.supercharge.shimmerlayout.ShimmerLayout>

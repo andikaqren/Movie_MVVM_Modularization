@@ -33,16 +33,6 @@
         <item name="android:isIndicator">true</item>
     </style>
 
-    <style name="CardView.HomeProduct" parent="Widget.MaterialComponents.CardView">
-        <item name="android:layout_gravity">center</item>
-        <item name="cardCornerRadius">@dimen/_8sdp</item>
-        <item name="cardElevation">@dimen/_8sdp</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_width">@dimen/movies_size</item>
-        <item name="android:layout_height">@dimen/movies_size</item>
-
-    </style>
-
     <style name="CardView.HomeTopProduct" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_marginStart">@dimen/medium_margin</item>
         <item name="cardCornerRadius">@dimen/mini_medium_margin</item>
@@ -76,8 +66,9 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/_10sdp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:maxLength">30</item>
@@ -124,8 +115,8 @@
     </style>
 
     <style name="CosntraintLayout.HomeProduct" parent="Theme.Submission1ArchitectureComponent">
-        <item name="android:layout_width">@dimen/movies_size_bonus</item>
-        <item name="android:layout_height">@dimen/movies_size_bonus</item>
+        <item name="android:layout_width">@dimen/movies_size</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_margin">@dimen/mini_margin</item>
 
@@ -153,6 +144,6 @@
     </style>
 
     <style name="MyTheme" parent="@android:style/Theme.Holo">
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/gradient_background</item>
     </style>
 </resources>
