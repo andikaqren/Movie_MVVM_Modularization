@@ -27,25 +27,25 @@ class MovieInteractors
 constructor(
     private val localDataSource: LocalDataSource,
     private val networkDataSource: RemoteDataSource
-) {
+):MovieUseCase {
 
-    suspend fun insertSelectedTV(tv: TV) {
+    override  suspend  fun insertSelectedTV(tv: TV) {
         localDataSource.insertSelectedTV(DataMapper.tvToLocalTV(tv))
     }
 
-    suspend fun insertSelectedMovie(movie: Movie) {
+    override  suspend  fun insertSelectedMovie(movie: Movie) {
         localDataSource.insertSelectedMovie(DataMapper.movieToLocalMovie(movie))
     }
 
-    suspend fun removeSelectedMovie(movie: Movie) {
+    override suspend  fun removeSelectedMovie(movie: Movie) {
         localDataSource.removeSelectedMovie(DataMapper.movieToLocalMovie(movie))
     }
 
-    suspend fun removeSelectedTV(tv: TV) {
+    override  suspend  fun removeSelectedTV(tv: TV) {
         localDataSource.removeSelectedTV(DataMapper.tvToLocalTV(tv))
     }
 
-    fun getAllFavouriteMovie(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> =
+    override fun getAllFavouriteMovie(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> =
         flow {
             emit(DataState.Loading)
             EspressoIdlingResource.increment()
@@ -60,7 +60,7 @@ constructor(
             }
         }
 
-    fun getAllFavouriteTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
+    override fun getAllFavouriteTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -74,7 +74,7 @@ constructor(
         }
     }
 
-    fun getSelectedMovie(id: Int): Flow<DataState<Movie>> = flow {
+    override fun getSelectedMovie(id: Int): Flow<DataState<Movie>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -88,7 +88,7 @@ constructor(
     }
 
 
-    fun getSelectedTV(id: Int): Flow<DataState<TV>> = flow {
+    override fun getSelectedTV(id: Int): Flow<DataState<TV>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -101,7 +101,7 @@ constructor(
         }
     }
 
-    fun getDetailTV(id: String): Flow<DataState<TV>> = flow {
+    override fun getDetailTV(id: String): Flow<DataState<TV>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -114,7 +114,7 @@ constructor(
         }
     }
 
-    fun getDetailMovie(id: String): Flow<DataState<Movie>> = flow {
+    override fun getDetailMovie(id: String): Flow<DataState<Movie>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -128,7 +128,7 @@ constructor(
     }
 
 
-    fun getSimilar(filename: Int): Flow<DataState<Movies>> = flow {
+    override fun getSimilar(filename: Int): Flow<DataState<Movies>> = flow {
         EspressoIdlingResource.increment()
         emit(DataState.Loading)
         try {
@@ -142,7 +142,7 @@ constructor(
         }
     }
 
-    fun getSimilarTV(filename: Int): Flow<DataState<TVs>> = flow {
+    override fun getSimilarTV(filename: Int): Flow<DataState<TVs>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -156,7 +156,7 @@ constructor(
         }
     }
 
-    fun getRecomendation(filename: Int): Flow<DataState<Movies>> = flow {
+    override fun getRecomendation(filename: Int): Flow<DataState<Movies>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -170,7 +170,7 @@ constructor(
         }
     }
 
-    fun getRecomendationTV(filename: Int): Flow<DataState<TVs>> = flow {
+    override fun getRecomendationTV(filename: Int): Flow<DataState<TVs>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -184,7 +184,7 @@ constructor(
         }
     }
 
-    fun getTopMovies(): Flow<DataState<Movies>> = flow {
+    override fun getTopMovies(): Flow<DataState<Movies>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -199,7 +199,7 @@ constructor(
     }
 
 
-    fun getUpcoming(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
+    override fun getUpcoming(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -215,7 +215,7 @@ constructor(
         }
     }
 
-    fun getNowPlaying(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
+    override fun getNowPlaying(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -232,7 +232,7 @@ constructor(
     }
 
 
-    fun getPopular(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
+    override fun getPopular(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -249,7 +249,7 @@ constructor(
     }
 
 
-    fun getPopularTv(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
+    override fun getPopularTv(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -264,7 +264,7 @@ constructor(
         }
     }
 
-    fun getTopRatedTv(): Flow<DataState<TVs>> = flow {
+    override fun getTopRatedTv(): Flow<DataState<TVs>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {
@@ -277,7 +277,7 @@ constructor(
         }
     }
 
-    fun getLatestTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
+    override fun getLatestTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
         emit(DataState.Loading)
         EspressoIdlingResource.increment()
         try {

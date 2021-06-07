@@ -16,6 +16,7 @@ import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.T
 import com.andika.architecturecomponent.core.business.domain.utils.gone
 import com.andika.architecturecomponent.core.business.domain.utils.visible
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import com.andika.architecturecomponent.core.di.FavouriteModule
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter
 import com.andika.architecturecomponent.core.ui.adapter.TVPagingAdapter
@@ -31,7 +32,7 @@ import javax.inject.Inject
 class FavouriteFragment : Fragment() {
 
     @Inject
-    lateinit var interactors: MovieInteractors
+    lateinit var interactors: MovieUseCase
 
     private var movieAdapter = MoviePagingAdapter()
     private var tvAdapter = TVPagingAdapter()

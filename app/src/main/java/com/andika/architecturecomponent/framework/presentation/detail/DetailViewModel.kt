@@ -13,6 +13,7 @@ import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
 import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
+import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
@@ -27,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel
 @Inject constructor(
-    private val interactors: MovieInteractors
+    private val interactors: MovieUseCase
 ) : ViewModel() {
     private var _similarMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
     private var _recomendationMovies: MutableLiveData<DataState<Movies>> = MutableLiveData()
