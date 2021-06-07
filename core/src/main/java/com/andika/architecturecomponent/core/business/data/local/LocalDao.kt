@@ -2,7 +2,6 @@ package com.andika.architecturecomponent.core.business.data.local
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.andika.architecturecomponent.core.business.data.local.model.LocalGenre
 import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
 import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
 
@@ -15,13 +14,6 @@ interface LocalDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSelectedTV(movie: LocalTV): Long
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    @JvmSuppressWildcards
-    suspend fun insertSelectedGenres(genres: List<LocalGenre>)
-
-    @Query("DELETE FROM GENRE")
-    fun deleteGenre()
 
     @Delete
     fun deleteMovie(movie: LocalMovie)
@@ -40,8 +32,5 @@ interface LocalDao {
 
     @Query("SELECT * FROM TV")
     fun getAllFavouriteTV(): PagingSource<Int, LocalTV>
-
-    @Query("SELECT * FROM Genre")
-    fun getGenres(): List<LocalGenre>
 
 }

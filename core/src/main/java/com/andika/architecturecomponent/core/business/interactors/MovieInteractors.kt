@@ -1,296 +1,102 @@
 package com.andika.architecturecomponent.core.business.interactors
 
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.map
-import com.andika.architecturecomponent.core.business.data.local.LocalDataSource
-import com.andika.architecturecomponent.core.business.data.remote.RemoteDataSource
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.Movies
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.model.TVs
+import com.andika.architecturecomponent.core.business.domain.repository.IMovieRepository
 import com.andika.architecturecomponent.core.business.domain.state.DataState
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.LATEST_TV
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.NOW_PLAYING_MOVIES
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POPULAR_MOVIES
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.POPULAR_TV
-import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.UPCOMING_MOVIES
-import com.andika.architecturecomponent.core.business.domain.utils.DataMapper
-import com.andika.architecturecomponent.core.business.domain.utils.EspressoIdlingResource
-import com.andika.architecturecomponent.core.business.domain.utils.Helper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 
 class MovieInteractors
 constructor(
-    private val localDataSource: LocalDataSource,
-    private val networkDataSource: RemoteDataSource
-):MovieUseCase {
-
-    override  suspend  fun insertSelectedTV(tv: TV) {
-        localDataSource.insertSelectedTV(DataMapper.tvToLocalTV(tv))
+    private val movieRepository: IMovieRepository
+) : MovieUseCase {
+    override suspend fun insertSelectedTV(tv: TV) {
+        movieRepository.insertSelectedTV(tv)
     }
 
-    override  suspend  fun insertSelectedMovie(movie: Movie) {
-        localDataSource.insertSelectedMovie(DataMapper.movieToLocalMovie(movie))
+    override suspend fun insertSelectedMovie(movie: Movie) {
+        movieRepository.insertSelectedMovie(movie)
     }
 
-    override suspend  fun removeSelectedMovie(movie: Movie) {
-        localDataSource.removeSelectedMovie(DataMapper.movieToLocalMovie(movie))
+    override suspend fun removeSelectedMovie(movie: Movie) {
+        movieRepository.removeSelectedMovie(movie)
     }
 
-    override  suspend  fun removeSelectedTV(tv: TV) {
-        localDataSource.removeSelectedTV(DataMapper.tvToLocalTV(tv))
+    override suspend fun removeSelectedTV(tv: TV) {
+        movieRepository.removeSelectedTV(tv)
     }
 
-    override fun getAllFavouriteMovie(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> =
-        flow {
-            emit(DataState.Loading)
-            EspressoIdlingResource.increment()
-            try {
-                localDataSource.getAllFavMovies().cachedIn(scope).collect { data ->
-                    emit(DataState.Success(data.map { DataMapper.localMovieToMovie(it) }))
-                    EspressoIdlingResource.decrement()
-                }
-            } catch (e: Exception) {
-                emit(DataState.Error(e))
-                EspressoIdlingResource.decrement()
-            }
-        }
-
-    override fun getAllFavouriteTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            localDataSource.getAllFavTV().cachedIn(scope).collect { data ->
-                emit(DataState.Success(data.map { DataMapper.localTVToTV(it) }))
-                EspressoIdlingResource.decrement()
-            }
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getAllFavouriteMovie(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> {
+        return movieRepository.getAllFavouriteMovie(scope)
     }
 
-    override fun getSelectedMovie(id: Int): Flow<DataState<Movie>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.localMovieToMovie(localDataSource.getSelectedMovie(id))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getAllFavouriteTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> {
+        return movieRepository.getAllFavouriteTV(scope)
     }
 
-
-    override fun getSelectedTV(id: Int): Flow<DataState<TV>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.localTVToTV(localDataSource.getSelectedTV(id))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getSelectedMovie(id: Int): Flow<DataState<Movie>> {
+        return movieRepository.getSelectedMovie(id)
     }
 
-    override fun getDetailTV(id: String): Flow<DataState<TV>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.remoteTVToTV(networkDataSource.getDetailTV(id))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getSelectedTV(id: Int): Flow<DataState<TV>> {
+        return movieRepository.getSelectedTV(id)
     }
 
-    override fun getDetailMovie(id: String): Flow<DataState<Movie>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.remoteMovieToMovie(networkDataSource.getDetailMovie(id))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getDetailTV(id: String): Flow<DataState<TV>> {
+        return movieRepository.getDetailTV(id)
     }
 
-
-    override fun getSimilar(filename: Int): Flow<DataState<Movies>> = flow {
-        EspressoIdlingResource.increment()
-        emit(DataState.Loading)
-        try {
-            val data =
-                DataMapper.remoteMoviesToMovies(networkDataSource.getSimilar(filename = filename))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getDetailMovie(id: String): Flow<DataState<Movie>> {
+        return movieRepository.getDetailMovie(id)
     }
 
-    override fun getSimilarTV(filename: Int): Flow<DataState<TVs>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data =
-                DataMapper.remoteTVsToTVs(networkDataSource.getSimilarTV(filename = filename))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getSimilar(filename: Int): Flow<DataState<Movies>> {
+        return movieRepository.getSimilar(filename)
     }
 
-    override fun getRecomendation(filename: Int): Flow<DataState<Movies>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data =
-                DataMapper.remoteMoviesToMovies(networkDataSource.getRecomendation(filename = filename))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getSimilarTV(filename: Int): Flow<DataState<TVs>> {
+        return movieRepository.getSimilarTV(filename)
     }
 
-    override fun getRecomendationTV(filename: Int): Flow<DataState<TVs>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data =
-                DataMapper.remoteTVsToTVs(networkDataSource.getRecomendationTV(filename = filename))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getRecomendation(filename: Int): Flow<DataState<Movies>> {
+        return movieRepository.getRecomendation(filename)
     }
 
-    override fun getTopMovies(): Flow<DataState<Movies>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.remoteMoviesToMovies(networkDataSource.getTopMovies(1))
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getRecomendationTV(filename: Int): Flow<DataState<TVs>> {
+        return movieRepository.getRecomendationTV(filename)
     }
 
-
-    override fun getUpcoming(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            Helper.getMoviePager(networkDataSource, UPCOMING_MOVIES).cachedIn(scope).collect {
-                val data = it
-                emit(DataState.Success(data))
-                EspressoIdlingResource.decrement()
-            }
-
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getTopMovies(): Flow<DataState<Movies>> {
+        return movieRepository.getTopMovies()
     }
 
-    override fun getNowPlaying(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            Helper.getMoviePager(networkDataSource, NOW_PLAYING_MOVIES).cachedIn(scope).collect {
-                val data = it
-                emit(DataState.Success(data))
-                EspressoIdlingResource.decrement()
-            }
-
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getUpcoming(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> {
+        return movieRepository.getUpcoming(scope)
     }
 
-
-    override fun getPopular(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            Helper.getMoviePager(networkDataSource, POPULAR_MOVIES).cachedIn(scope).collect {
-                val data = it
-                emit(DataState.Success(data))
-                EspressoIdlingResource.decrement()
-            }
-
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getNowPlaying(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> {
+        return movieRepository.getNowPlaying(scope)
     }
 
-
-    override fun getPopularTv(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            Helper.getTVPager(networkDataSource, POPULAR_TV).cachedIn(scope).collect {
-                val data = it
-                emit(DataState.Success(data))
-                EspressoIdlingResource.decrement()
-            }
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getPopular(scope: CoroutineScope): Flow<DataState<PagingData<Movie>>> {
+        return movieRepository.getPopular(scope)
     }
 
-    override fun getTopRatedTv(): Flow<DataState<TVs>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            val data = DataMapper.remoteTVsToTVs(networkDataSource.getTopRatedTV())
-            emit(DataState.Success(data))
-            EspressoIdlingResource.decrement()
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getPopularTv(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> {
+        return movieRepository.getPopularTv(scope)
     }
 
-    override fun getLatestTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> = flow {
-        emit(DataState.Loading)
-        EspressoIdlingResource.increment()
-        try {
-            Helper.getTVPager(networkDataSource, LATEST_TV).cachedIn(scope).collect {
-                val data = it
-                emit(DataState.Success(data))
-                EspressoIdlingResource.decrement()
-            }
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-            EspressoIdlingResource.decrement()
-        }
+    override fun getTopRatedTv(): Flow<DataState<TVs>> {
+        return movieRepository.getTopRatedTv()
     }
 
-
+    override fun getLatestTV(scope: CoroutineScope): Flow<DataState<PagingData<TV>>> {
+        return movieRepository.getLatestTV(scope)
+    }
 }
+
+

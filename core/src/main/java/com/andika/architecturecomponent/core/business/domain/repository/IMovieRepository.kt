@@ -1,4 +1,4 @@
-package com.andika.architecturecomponent.core.business.interactors
+package com.andika.architecturecomponent.core.business.domain.repository
 
 import androidx.paging.PagingData
 import com.andika.architecturecomponent.core.business.domain.model.Movie
@@ -9,7 +9,7 @@ import com.andika.architecturecomponent.core.business.domain.state.DataState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
-interface MovieUseCase {
+interface IMovieRepository {
     suspend fun insertSelectedTV(tv: TV)
 
     suspend fun insertSelectedMovie(movie: Movie)

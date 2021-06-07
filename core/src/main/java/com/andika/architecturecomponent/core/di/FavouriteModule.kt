@@ -1,6 +1,5 @@
 package com.andika.architecturecomponent.core.di
 
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn

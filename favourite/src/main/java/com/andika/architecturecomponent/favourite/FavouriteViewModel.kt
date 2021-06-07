@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.TV
 import com.andika.architecturecomponent.core.business.domain.state.DataState
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

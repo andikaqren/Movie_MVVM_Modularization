@@ -3,7 +3,6 @@ package com.andika.architecturecomponent.core.business.data.local
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.andika.architecturecomponent.core.business.data.local.model.LocalGenre
 import com.andika.architecturecomponent.core.business.data.local.model.LocalMovie
 import com.andika.architecturecomponent.core.business.data.local.model.LocalTV
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.PAGE_SIZE
@@ -27,10 +26,6 @@ constructor(
 
     override suspend fun removeSelectedTV(movie: LocalTV) {
         return daoService.deleteTV(movie)
-    }
-
-    override suspend fun insertGenres(genres: List<LocalGenre>) {
-        return daoService.insertSelectedGenres(genres)
     }
 
     override fun getSelectedMovie(id: Int): LocalMovie {
@@ -57,9 +52,7 @@ constructor(
         ).flow
     }
 
-    override fun getGenres(): List<LocalGenre> {
-        return daoService.getGenres()
-    }
+
 
 
 }

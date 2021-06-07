@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import com.andika.architecturecomponent.core.business.domain.model.Movie
 import com.andika.architecturecomponent.core.business.domain.model.Movies
 import com.andika.architecturecomponent.core.business.domain.state.DataState
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

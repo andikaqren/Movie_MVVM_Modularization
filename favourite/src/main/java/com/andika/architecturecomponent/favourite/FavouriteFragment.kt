@@ -15,7 +15,6 @@ import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.M
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
 import com.andika.architecturecomponent.core.business.domain.utils.gone
 import com.andika.architecturecomponent.core.business.domain.utils.visible
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import com.andika.architecturecomponent.core.di.FavouriteModule
 import com.andika.architecturecomponent.core.ui.adapter.MoviePagingAdapter

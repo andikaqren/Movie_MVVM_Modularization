@@ -12,7 +12,6 @@ import com.andika.architecturecomponent.core.business.domain.model.TVs
 import com.andika.architecturecomponent.core.business.domain.state.DataState
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.MOVIE
 import com.andika.architecturecomponent.core.business.domain.utils.AppConstant.TV
-import com.andika.architecturecomponent.core.business.interactors.MovieInteractors
 import com.andika.architecturecomponent.core.business.interactors.MovieUseCase
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
